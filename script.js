@@ -91,3 +91,20 @@ if (contactForm) contactForm.addEventListener('submit', e => {
 // 8. Auto year
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
+
+// 9. Project modals
+document.querySelectorAll('[data-modal]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const modal = document.getElementById('modal-' + btn.dataset.modal);
+    if (modal) modal.hidden = false;
+  });
+});
+document.querySelectorAll('[data-close]').forEach(b => {
+  b.addEventListener('click', () => { b.closest('.modal').hidden = true; });
+});
+document.querySelectorAll('.modal').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.hidden = true; });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal').forEach(m => m.hidden = true);
+});

@@ -92,7 +92,7 @@
         <p>Retail business supplying everyday goods to local customers, managed end-to-end.</p>
         <div class="links">
           <a href="https://wa.me/27745086001" target="_blank" rel="noopener">Contact</a>
-          <a href="#contact" target="_blank" rel="noopener">More</a>
+          <button type="button" class="link-btn" data-modal="cb">More</button>
         </div>
       </article>
       <article class="card reveal">
@@ -101,9 +101,27 @@
         <p>OpenStreetMap/Overpass prospecting flow that finds SA businesses without a website to pitch a free sample site.</p>
         <div class="links">
           <a href="https://github.com/thabs1234" target="_blank" rel="noopener">Code</a>
-          <a href="#contact" target="_blank" rel="noopener">Details</a>
+          <button type="button" class="link-btn" data-modal="llf">Details</button>
         </div>
       </article>
+    </div>
+
+    <!-- Project modals -->
+    <div class="modal" id="modal-cb" hidden>
+      <div class="modal-card">
+        <button class="modal-close" data-close aria-label="Close">&times;</button>
+        <h3>Come &amp; Buy Enterprise</h3>
+        <p>A retail operation supplying everyday goods to local South African customers, run end-to-end — sourcing, stock, and fulfilment. The model is built to be low-overhead and repeatable, complementing the digital side of the business through SiteCraft SA.</p>
+        <div class="links"><a href="https://wa.me/27745086001" target="_blank" rel="noopener">Contact on WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="modal" id="modal-llf" hidden>
+      <div class="modal-card">
+        <button class="modal-close" data-close aria-label="Close">&times;</button>
+        <h3>Local Lead Finder</h3>
+        <p>An automated prospecting flow using OpenStreetMap / Overpass that finds South African businesses without a website, so SiteCraft SA can pitch them a free sample site and convert them into done-for-you clients. Turns manual lead-hunting into a repeatable pipeline.</p>
+        <div class="links"><a href="https://github.com/thabs1234" target="_blank" rel="noopener">View on GitHub</a></div>
+      </div>
     </div>
   </section>
 
