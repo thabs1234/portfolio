@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thabang — Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="description" content="Thabang — Web designer and founder of SiteCraft SA and Come & Buy Enterprise. Done-for-you websites for South African local businesses." />
+  <link rel="stylesheet" href="style.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <header class="header" id="header">
+    <a href="#home" class="logo">Thabang<span>.</span></a>
+    <nav class="nav">
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-text reveal">
+      <p class="hello">Hello, my name is</p>
+      <h1>Thabang</h1>
+      <h2>And I'm a <span class="typing"></span></h2>
+      <p class="hero-sub">Founder of SiteCraft SA &amp; Come &amp; Buy Enterprise — building done-for-you websites for South African local businesses.</p>
+      <div class="socials">
+        <a href="https://wa.me/27745086001" aria-label="WhatsApp" target="_blank" rel="noopener">WA</a>
+        <a href="https://github.com/thabs1234" aria-label="GitHub" target="_blank" rel="noopener">GH</a>
+        <a href="https://www.linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener">IN</a>
+      </div>
+      <div class="cta">
+        <a href="assets/cv.pdf" class="btn" download>Download CV</a>
+        <a href="#contact" class="btn outline">Hire Me</a>
+      </div>
+    </div>
+    <a href="#about" class="scroll-cue" aria-label="Scroll down">&#8595;</a>
+  </section>
+
+  <section id="about" class="about">
+    <div class="about-photo reveal"><img class="photo" src="assets/profile.jpg" alt="Thabang - Web Designer and Founder of SiteCraft SA" width="240" height="240" /></div>
+    <div class="about-text reveal">
+      <h2>About Me</h2>
+      <p>I help local South African businesses get online with clean, fast websites — no jargon, no big budgets. Through SiteCraft SA I build done-for-you sites for R1,500 setup plus R450/month, and through Come &amp; Buy Enterprise I run everyday-goods retail.</p>
+      <ul class="about-info">
+        <li><span>Name:</span> Thabang M. <!-- replace with full name --></li>
+        <li><span>Email:</span> lehauthabang@gmail.com</li>
+        <li><span>From:</span> South Africa</li>
+        <li><span>Role:</span> Web Designer &amp; Founder</li>
+      </ul>
+      <div class="cta">
+        <a href="#contact" class="btn">Hire Me</a>
+        <a href="assets/cv.pdf" class="btn outline" download>Download CV</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="skills">
+    <h2 class="reveal">My Skills</h2>
+    <div class="skill-list">
+      <div class="skill reveal"><span>HTML &amp; CSS</span><div class="bar"><div class="fill" data-level="92%"></div></div></div>
+      <div class="skill reveal"><span>JavaScript</span><div class="bar"><div class="fill" data-level="78%"></div></div></div>
+      <div class="skill reveal"><span>Responsive Web Design</span><div class="bar"><div class="fill" data-level="88%"></div></div></div>
+      <div class="skill reveal"><span>Local Business Outreach</span><div class="bar"><div class="fill" data-level="85%"></div></div></div>
+      <div class="skill reveal"><span>WhatsApp Marketing</span><div class="bar"><div class="fill" data-level="82%"></div></div></div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <h2 class="reveal">My Projects</h2>
+    <div class="grid">
+      <article class="card reveal">
+        <div class="thumb">SC</div>
+        <h3>SiteCraft SA</h3>
+        <p>Done-for-you website service for SA local businesses — R1,500 setup + R450/mo hosting &amp; support.</p>
+        <div class="links">
+          <a href="https://wa.me/27745086001" target="_blank" rel="noopener">Enquire</a>
+          <a href="https://github.com/thabs1234/sitecraft-sa" target="_blank" rel="noopener">Code</a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="thumb">CB</div>
+        <h3>Come &amp; Buy Enterprise</h3>
+        <p>Retail business supplying everyday goods to local customers, managed end-to-end.</p>
+        <div class="links">
+          <a href="https://wa.me/27745086001" target="_blank" rel="noopener">Contact</a>
+          <button type="button" class="link-btn" data-modal="cb">More</button>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="thumb">OS</div>
+        <h3>Local Lead Finder</h3>
+        <p>OpenStreetMap/Overpass prospecting flow that finds SA businesses without a website to pitch a free sample site.</p>
+        <div class="links">
+          <a href="https://github.com/thabs1234" target="_blank" rel="noopener">Code</a>
+          <button type="button" class="link-btn" data-modal="llf">Details</button>
+        </div>
+      </article>
+    </div>
+
+    <!-- Project modals -->
+    <div class="modal" id="modal-cb" hidden>
+      <div class="modal-card">
+        <button class="modal-close" data-close aria-label="Close">&times;</button>
+        <h3>Come &amp; Buy Enterprise</h3>
+        <p>A retail operation supplying everyday goods to local South African customers, run end-to-end — sourcing, stock, and fulfilment. The model is built to be low-overhead and repeatable, complementing the digital side of the business through SiteCraft SA.</p>
+        <div class="links"><a href="https://wa.me/27745086001" target="_blank" rel="noopener">Contact on WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="modal" id="modal-llf" hidden>
+      <div class="modal-card">
+        <button class="modal-close" data-close aria-label="Close">&times;</button>
+        <h3>Local Lead Finder</h3>
+        <p>An automated prospecting flow using OpenStreetMap / Overpass that finds South African businesses without a website, so SiteCraft SA can pitch them a free sample site and convert them into done-for-you clients. Turns manual lead-hunting into a repeatable pipeline.</p>
+        <div class="links"><a href="https://github.com/thabs1234" target="_blank" rel="noopener">View on GitHub</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="reveal">Contact Me</h2>
+    <div class="contact-wrap">
+      <!-- action is a no-JS fallback; script.js upgrades it to a pre-filled mailto. -->
+      <form id="contact-form" action="mailto:lehauthabang@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+        <p class="form-note">Opens your email app, pre-filled to me. (Swap to Formspree later for inbox delivery without the visitor's mail app.)</p>
+      </form>
+      <ul class="about-info">
+        <li><span>Email:</span> lehauthabang@gmail.com</li>
+        <li><span>WhatsApp:</span> +27 74 508 6001</li>
+        <li><span>Location:</span> South Africa</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="socials">
+      <a href="https://wa.me/27745086001" target="_blank" rel="noopener">WA</a>
+      <a href="https://github.com/thabs1234" target="_blank" rel="noopener">GH</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener">IN</a>
+    </div>
+    <p>&copy; <span id="year"></span> Thabang. All rights reserved.</p>
+    <a href="#home" id="back-to-top" aria-label="Back to top">&#8593;</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
