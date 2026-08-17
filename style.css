@@ -60,7 +60,9 @@ h2::after { content: ""; display: block; width: 56px; height: 3px; background: v
 
 /* About */
 .about { display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: center; }
-.photo { width: 240px; height: 240px; border-radius: 16px; background: var(--surface); border: 2px solid var(--accent); display: grid; place-items: center; color: var(--muted); font-size: 3rem; font-weight: 700; }
+.photo { width: 240px; height: 240px; border-radius: 16px; object-fit: cover; object-position: center 28%; background: var(--surface); border: 2px solid var(--accent); display: block; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
+.about-photo { position: relative; width: 240px; height: 240px; }
+.about-photo::before { content: ""; position: absolute; inset: -6px; border-radius: 20px; background: url('assets/profile-blur.jpg') center/cover; filter: blur(6px); opacity: .35; z-index: -1; }
 .about-info { margin: 18px 0; }
 .about-info li { padding: 4px 0; color: var(--muted); }
 .about-info span { color: var(--fg); font-weight: 600; display: inline-block; width: 84px; }
@@ -86,6 +88,7 @@ h2::after { content: ""; display: block; width: 56px; height: 3px; background: v
 form { display: grid; gap: 12px; }
 form input, form textarea { background: var(--surface); border: 1px solid #2a2a2f; color: var(--fg); padding: 12px 14px; border-radius: 8px; font: inherit; }
 form input:focus, form textarea:focus { outline: none; border-color: var(--accent); }
+.form-note { color: var(--muted); font-size: .8rem; margin-top: 4px; }
 
 /* Footer */
 footer { text-align: center; padding: 30px 6vw; border-top: 1px solid #222; position: relative; }
