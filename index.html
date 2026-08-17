@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thabang — Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <meta name="description" content="Thabang — Web designer and founder of SiteCraft SA and Come & Buy Enterprise. Done-for-you websites for South African local businesses." />
   <link rel="stylesheet" href="style.css" />
   <script>document.documentElement.classList.add('js');</script>
@@ -109,11 +110,13 @@
   <section id="contact" class="contact">
     <h2 class="reveal">Contact Me</h2>
     <div class="contact-wrap">
-      <form action="https://formspree.io/f/your-id" method="POST">
+      <!-- action is a no-JS fallback; script.js upgrades it to a pre-filled mailto. Replace you@example.com with your real email. -->
+      <form id="contact-form" action="mailto:you@example.com" method="post" enctype="text/plain">
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
         <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
         <button type="submit" class="btn">Send Message</button>
+        <p class="form-note">Opens your email app, pre-filled to me. (Swap to Formspree later for inbox delivery without the visitor's mail app.)</p>
       </form>
       <ul class="about-info">
         <li><span>Email:</span> you@example.com <!-- replace --></li>
