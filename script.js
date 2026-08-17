@@ -74,6 +74,20 @@ if (toTop) toTop.addEventListener('click', e => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+// 8. Contact form -> pre-filled mailto (zero external accounts needed)
+const CONTACT_EMAIL = 'lehauthabang@gmail.com';
+const contactForm = document.getElementById('contact-form');
+if (contactForm) contactForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = contactForm.elements.name.value.trim();
+  const email = contactForm.elements.email.value.trim();
+  const message = contactForm.elements.message.value.trim();
+  if (!name || !email || !message) return;
+  const subject = encodeURIComponent('Portfolio enquiry from ' + name);
+  const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+  window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
+});
+
 // 8. Auto year
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
