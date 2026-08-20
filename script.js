@@ -67,6 +67,21 @@ const revealObserver = new IntersectionObserver((entries, obs) => {
 }, { threshold: 0.18 });
 revealEls.forEach(el => { if (!el.classList.contains('show')) revealObserver.observe(el); });
 
+// 6b. Project filtering
+const filterBtns = document.querySelectorAll('.filter');
+const cards = document.querySelectorAll('.card');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    cards.forEach(card => {
+      const show = f === 'all' || card.dataset.cat === f;
+      card.classList.toggle('hide', !show);
+    });
+  });
+});
+
 // 7. Back to top
 const toTop = document.getElementById('back-to-top');
 if (toTop) toTop.addEventListener('click', e => {
