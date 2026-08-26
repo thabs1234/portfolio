@@ -1,8 +1,16 @@
 // Portfolio behaviors — vanilla JS, no deps.
 
-// 1. Sticky header
+// 1. Sticky header + scroll progress bar
 const header = document.getElementById('header');
-const onScroll = () => header.classList.toggle('sticky', window.scrollY > 50);
+const progress = document.getElementById('scrollProgress');
+function onScroll() {
+  header.classList.toggle('sticky', window.scrollY > 50);
+  if (progress) {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+  }
+}
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
