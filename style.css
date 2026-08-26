@@ -113,7 +113,7 @@ h2::after { content: ""; display: block; width: 56px; height: 4px; background: v
 
 /* About */
 .about { display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: center; }
-.photo { width: 240px; height: 240px; border-radius: 14px; object-fit: cover; object-position: center 28%; background: var(--surface); border: 3px solid var(--accent); display: block; box-shadow: 0 12px 32px rgba(40,20,10,.14); }
+.photo { width: 240px; height: 240px; border-radius: 14px; object-fit: cover; object-position: center; background: var(--surface); border: 3px solid var(--accent); display: block; box-shadow: 0 12px 32px rgba(40,20,10,.14); }
 .about-photo { position: relative; width: 240px; height: 240px; }
 .about-photo::before { content: ""; position: absolute; inset: -8px; border-radius: 18px; background: var(--accent-soft); filter: blur(12px); opacity: .6; z-index: -1; }
 .about-info { margin: 18px 0; }
