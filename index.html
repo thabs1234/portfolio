@@ -6,10 +6,14 @@
   <title>Thabang — Portfolio</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <meta name="description" content="Thabang — Web designer and founder of SiteCraft SA and Come & Buy Enterprise. Done-for-you websites for South African local businesses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress"></div>
   <header class="header" id="header">
     <a href="#home" class="logo">Thabang<span>.</span></a>
     <nav class="nav">
@@ -31,10 +35,21 @@
 
   <section id="home" class="hero">
     <div class="hero-text reveal">
+      <div class="hero-avatar">
+        <img class="avatar-img" src="assets/profile.jpg" alt="Thabang - Web Designer and Founder of SiteCraft SA" width="132" height="132" />
+      </div>
       <p class="hello">Hello, my name is</p>
       <h1>Thabang</h1>
       <h2>And I'm a <span class="typing"></span></h2>
       <p class="hero-sub">Founder of SiteCraft SA &amp; Come &amp; Buy Enterprise — building done-for-you websites for South African local businesses.</p>
+      <div class="hero-skills reveal">
+        <span class="skill-chip">Hermes Agent</span>
+        <span class="skill-chip">Computer Use</span>
+        <span class="skill-chip">WhatsApp Outbound</span>
+        <span class="skill-chip">Lead Scraping</span>
+        <span class="skill-chip">Cron Pipelines</span>
+        <span class="skill-chip">MCP Bridge</span>
+      </div>
       <div class="socials">
         <a href="https://wa.me/27745086001" aria-label="WhatsApp" target="_blank" rel="noopener">WA</a>
         <a href="https://github.com/thabs1234" aria-label="GitHub" target="_blank" rel="noopener">GH</a>
@@ -54,6 +69,13 @@
     <div class="stat reveal"><span class="stat-num">R450</span><span class="stat-label">Per month</span></div>
     <div class="stat reveal"><span class="stat-num">100%</span><span class="stat-label">Owner-editable</span></div>
     <div class="stat reveal"><span class="stat-num">R0</span><span class="stat-label">Hosting cost</span></div>
+  </section>
+
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Web Design</span><span class="dot">&bull;</span><span>Local SEO</span><span class="dot">&bull;</span><span>Automation</span><span class="dot">&bull;</span><span>GitHub Pages</span><span class="dot">&bull;</span><span>SiteCraft SA</span><span class="dot">&bull;</span><span>Done-for-you Sites</span><span class="dot">&bull;</span>
+      <span>Web Design</span><span class="dot">&bull;</span><span>Local SEO</span><span class="dot">&bull;</span><span>Automation</span><span class="dot">&bull;</span><span>GitHub Pages</span><span class="dot">&bull;</span><span>SiteCraft SA</span><span class="dot">&bull;</span><span>Done-for-you Sites</span><span class="dot">&bull;</span>
+    </div>
   </section>
 
   <section id="about" class="about">
