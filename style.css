@@ -48,6 +48,7 @@ ul { list-style: none; }
 }
 .header.sticky {
   background: rgba(247,246,243,.82);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
   backdrop-filter: saturate(180%) blur(12px);
   padding: 12px 6vw;
   box-shadow: 0 1px 0 var(--line);
@@ -186,7 +187,7 @@ form { display: grid; gap: 12px; }
 form input, form textarea { background: var(--surface); border: 1px solid var(--line); color: var(--fg); padding: 13px 14px; border-radius: 10px; font: inherit; }
 form input:focus, form textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 /* Project modals */
-.modal { position: fixed; inset: 0; background: rgba(22,20,15,.55); backdrop-filter: blur(3px); display: grid; place-items: center; padding: 20px; z-index: 100; }
+.modal { position: fixed; inset: 0; background: rgba(22,20,15,.55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); display: grid; place-items: center; padding: 20px; z-index: 100; }
 .modal[hidden] { display: none; }
 .modal-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; max-width: 520px; width: 100%; padding: 30px; position: relative; box-shadow: 0 24px 70px rgba(40,20,10,.22); }
 .modal-card h3 { margin-bottom: 10px; letter-spacing: -.01em; font-family: var(--serif); font-weight: 600; }
