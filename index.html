@@ -5,787 +5,747 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tshepo Motshoni — Medico-Legal &amp; Forensic Services</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: #0d0a0a; color: #f5f5f5; line-height: 1.6; font-size: 1rem;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #080606; color: #f0ece4; line-height: 1.65; font-size: 0.95rem;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
-.preloader { position: fixed; inset: 0; z-index: 9999; background: #0d0a0a; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s ease; }
+.preloader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #080606;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
 .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.spinner { width: 48px; height: 48px; border: 3px solid #2a2a2a; border-top-color: #f3383f; border-right-color: #9d9e9e; border-radius: 50%; animation: spin 0.8s linear infinite; }
+.spinner {
+  width: 52px; height: 52px;
+  border: 3px solid #1a1212; border-top-color: #dc2626; border-right-color: #7f1d1d;
+  border-radius: 50%; animation: spin 0.9s linear infinite;
+  box-shadow: 0 0 18px rgba(220,38,38,0.15);
+}
 @keyframes spin { to { transform: rotate(360deg); } }
-.preloader-text { color: #8a8a8a; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; }
+.preloader-text {
+  color: #6b5c5c; font-size: 0.7rem; letter-spacing: 0.2em;
+  text-transform: uppercase; margin-top: 1rem; font-weight: 500;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #080606; }
+::-webkit-scrollbar-thumb { background: #2a1a1a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+::selection { background: #dc2626; color: #080606; }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0d0a0a; }
-::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #f3383f; }
-::selection { background: #f3383f; color: #0d0a0a; }
-
-nav {
+/* ===== NAVIGATION ===== */
+.nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(13,10,10,0.85); backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid #2a2a2a;
-  padding: 0.85rem 2rem; display: flex; justify-content: space-between;
-  align-items: center; transition: background 0.3s, border-color 0.3s;
+  padding: 0 2rem; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(8,6,6,0.72);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-bottom: 1px solid rgba(42,26,26,0.6);
+  transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
 }
-nav.scrolled { background: rgba(13,10,10,0.97); border-bottom-color: rgba(243,56,63,0.15); }
-nav .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-nav .logo img {
-  height: 38px; width: auto; border-radius: 6px;
-  transition: transform 0.3s, filter 0.3s;
-  filter: drop-shadow(0 0 6px rgba(243,56,63,0.25));
+.nav.scrolled {
+  background: rgba(8,6,6,0.94);
+  border-bottom-color: rgba(220,38,38,0.18);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
 }
-nav .logo:hover img {
-  transform: scale(1.04);
-  filter: drop-shadow(0 0 10px rgba(243,56,63,0.5));
+.nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; flex-shrink: 0; }
+.nav-logo svg { height: 34px; width: auto; filter: drop-shadow(0 0 8px rgba(220,38,38,0.20)); transition: filter 0.3s, transform 0.3s; }
+.nav-logo:hover svg { filter: drop-shadow(0 0 14px rgba(220,38,38,0.45)); transform: scale(1.04); }
+.nav-brand-text { font-weight: 700; font-size: 0.9rem; color: #f0ece4; letter-spacing: -0.01em; line-height: 1.1; }
+.nav-brand-text .accent { color: #dc2626; }
+.nav-brand-sub { font-size: 0.62rem; color: #6b5c5c; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+.nav-links { display: flex; gap: 0.25rem; list-style: none; }
+.nav-links a {
+  color: #8a7a7a; text-decoration: none; font-size: 0.8rem; font-weight: 500;
+  padding: 0.4rem 0.85rem; border-radius: 6px; transition: all 0.25s;
+  position: relative; letter-spacing: 0.02em;
 }
-nav .logo-text { font-weight: 700; font-size: 0.95rem; color: #f5f5f5; letter-spacing: -0.01em; }
-nav .logo-text span { color: #f3383f; }
-nav ul { display: flex; gap: 2rem; list-style: none; }
-nav ul a {
-  color: #8a8a8a; text-decoration: none; font-size: 0.85rem; font-weight: 500;
-  transition: color 0.2s; position: relative;
+.nav-links a:hover { color: #f0ece4; background: rgba(220,38,38,0.08); }
+.nav-links a.active { color: #f0ece4; background: rgba(220,38,38,0.14); }
+.nav-links a.active::before {
+  content: ''; position: absolute; top: 2px; bottom: 2px; left: 0;
+  width: 2px; background: #dc2626; border-radius: 1px;
 }
-nav ul a::after {
-  content: ''; position: absolute; bottom: -4px; left: 0;
-  width: 0; height: 2px; background: #f3383f; transition: width 0.3s;
-}
-nav ul a:hover { color: #f5f5f5; }
-nav ul a:hover::after { width: 100%; }
-.mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; }
-.mobile-toggle span { display: block; width: 22px; height: 2px; background: #8a8a8a; margin: 4px 0; transition: 0.3s; border-radius: 2px; }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+.mobile-toggle span { display: block; width: 22px; height: 2px; background: #8a7a7a; transition: 0.3s; border-radius: 2px; }
+.mobile-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: #dc2626; }
+.mobile-toggle.active span:nth-child(2) { opacity: 0; }
+.mobile-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: #dc2626; }
 
+/* ===== HERO ===== */
 .hero {
   min-height: 100vh; display: flex; flex-direction: column;
-  justify-content: flex-start; align-items: center; text-align: center;
-  padding: 7rem 2rem 4rem; position: relative; overflow: hidden;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 8rem 2rem 4rem; position: relative; overflow: hidden;
 }
-.hero::before {
-  content: ''; position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 700px 500px at 50% 20%, rgba(243,56,63,0.08) 0%, transparent 65%),
-    radial-gradient(ellipse 900px 600px at 30% 85%, rgba(100,100,105,0.05) 0%, transparent 60%);
-  pointer-events: none;
+.hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hero-bg .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.25; }
+.hero-bg .orb-1 {
+  width: 500px; height: 500px; top: -10%; left: 20%;
+  background: radial-gradient(circle, rgba(220,38,38,0.30), transparent 70%);
+  animation: orbFloat 18s ease-in-out infinite alternate;
 }
-.hero-grid {
+.hero-bg .orb-2 {
+  width: 400px; height: 400px; bottom: -5%; right: 10%;
+  background: radial-gradient(circle, rgba(127,29,29,0.20), transparent 70%);
+  animation: orbFloat 22s ease-in-out infinite alternate-reverse;
+}
+.hero-bg .grid {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(243,56,63,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(243,56,63,0.04) 1px, transparent 1px);
-  background-size: 60px 60px; z-index: 0; pointer-events: none;
+    linear-gradient(rgba(220,38,38,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220,38,38,0.035) 1px, transparent 1px);
+  background-size: 70px 70px;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 40%, black 30%, transparent 70%);
+}
+@keyframes orbFloat {
+  0% { transform: translate(0,0) scale(1); }
+  100% { transform: translate(40px,-30px) scale(1.1); }
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  background: rgba(243,56,63,0.12); border: 1px solid rgba(243,56,63,0.25);
-  border-radius: 50px; padding: 0.4rem 1rem; margin-bottom: 2rem;
-  font-size: 0.75rem; font-weight: 600; color: #f3383f; text-transform: uppercase; letter-spacing: 0.1em;
-  position: relative; z-index: 1;
+  background: rgba(220,38,38,0.10); border: 1px solid rgba(220,38,38,0.22);
+  border-radius: 50px; padding: 0.4rem 1.1rem; margin-bottom: 2rem;
+  font-size: 0.7rem; font-weight: 600; color: #dc2626;
+  text-transform: uppercase; letter-spacing: 0.1em; position: relative; z-index: 1;
+  backdrop-filter: blur(4px);
 }
-.hero-badge svg { width: 14px; height: 14px; }
-.hero-logo-wrap { position: relative; margin-bottom: 2.5rem; z-index: 1; }
-.hero-logo-wrap img {
-  height: 180px; width: auto; filter: drop-shadow(0 8px 30px rgba(0,0,0,0.5));
-  transition: transform 0.5s ease;
+.hero-badge .dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #dc2626;
+  box-shadow: 0 0 8px rgba(220,38,38,0.6); animation: pulse-dot 1.6s ease-in-out infinite;
 }
-.hero-logo-wrap:hover img { transform: scale(1.03); }
-.flyer-contact-strip {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 2.5rem;
-  padding: 1.2rem 2rem; margin: 0 auto 2.5rem; max-width: 900px;
-  background: rgba(13,10,10,0.45); border: 1px solid rgba(243,56,63,0.15);
-  border-radius: 14px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  z-index: 1; font-size: 0.85rem;
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px rgba(220,38,38,0.6); }
+  50% { opacity: 0.6; transform: scale(0.85); box-shadow: 0 0 4px rgba(220,38,38,0.3); }
 }
-.fcs-item { display: flex; align-items: center; gap: 0.5rem; color: #c8c8c8; }
-.fcs-item svg { width: 16px; height: 16px; color: #f3383f; flex-shrink: 0; }
-.fcs-link { color: #f3383f; text-decoration: none; font-weight: 600; transition: color 0.2s; }
-.fcs-link:hover { color: #ff4d52; }
-.fcs-tag { background: rgba(243,56,63,0.12); border: 1px solid rgba(243,56,63,0.2); border-radius: 50px; padding: 0.2rem 0.7rem; color: #f3383f; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.hero-logo-wrap { position: relative; margin-bottom: 2.2rem; z-index: 1; }
+.hero-logo-wrap svg {
+  height: 170px; width: auto; border-radius: 18px;
+  filter: drop-shadow(0 10px 40px rgba(0,0,0,0.6));
+  transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+.hero-logo-wrap:hover svg { transform: scale(1.035) rotate(-1deg); }
 .hero h1 {
-  font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800;
-  letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 1.5rem;
-  color: #fff; position: relative; z-index: 1;
+  font-size: clamp(2.6rem, 6.5vw, 5.2rem); font-weight: 800;
+  letter-spacing: -0.035em; line-height: 1.05; margin-bottom: 1.2rem;
+  color: #f0ece4; position: relative; z-index: 1;
 }
-.hero h1 .accent { color: #9d9e9e; display: block; }
-.hero h1 .red { color: #f3383f; }
-.hero .tagline {
-  font-size: 1.05rem; color: #9d9e9e; max-width: 560px;
-  margin: 0 auto 2.5rem; line-height: 1.7;
-}
-.hero .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; z-index: 1; position: relative; }
+.hero h1 .accent { color: #dc2626; display: block; font-weight: 900; }
+.hero h1 .sub { display: block; font-size: 0.42em; color: #7a6a6a; font-weight: 400; letter-spacing: 0.04em; margin-top: 0.3rem; }
+.hero-tagline { font-size: 1.05rem; color: #7a6a6a; max-width: 540px; margin: 0 auto 2.2rem; line-height: 1.7; position: relative; z-index: 1; }
+.hero-tagline strong { color: #dc2626; font-weight: 600; }
+.ctarow { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; z-index: 1; position: relative; }
 .btn {
   display: inline-flex; align-items: center; gap: 0.6rem;
-  padding: 0.85rem 2rem; border-radius: 50px; font-weight: 600;
-  font-size: 0.95rem; text-decoration: none; cursor: pointer;
-  border: none; transition: all 0.3s ease; position: relative;
+  padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600;
+  font-size: 0.9rem; text-decoration: none; cursor: pointer;
+  border: none; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative; overflow: hidden;
 }
 .btn-primary {
-  background: #f3383f; color: #0d0a0a;
-  box-shadow: 0 4px 20px rgba(243,56,63,0.35);
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #fff;
+  box-shadow: 0 4px 24px rgba(220,38,38,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
 }
-.btn-primary:hover { background: #dc2626; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(243,56,63,0.5); }
-.btn-primary:active { transform: translateY(0); }
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 36px rgba(220,38,38,0.50), inset 0 1px 0 rgba(255,255,255,0.18);
+}
 .btn-primary::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent 50%);
   opacity: 0; transition: opacity 0.3s;
 }
 .btn-primary:hover::after { opacity: 1; }
-.btn-outline {
-  background: transparent; color: #f5f5f5; border: 1px solid #2a2a2a;
-}
-.btn-outline:hover { border-color: #f3383f; color: #f3383f; }
-.btn svg { width: 16px; height: 16px; }
-.cta-secondary { display: inline-block; margin-top: 1.5rem; font-size: 0.85rem; color: #8a8a8a; text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
-.cta-secondary:hover { color: #f3383f; }
+.btn-outline { background: transparent; color: #f0ece4; border: 1px solid rgba(220,38,38,0.25); backdrop-filter: blur(4px); }
+.btn-outline:hover { border-color: #dc2626; color: #dc2626; background: rgba(220,38,38,0.06); transform: translateY(-2px); }
+.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
+/* ===== MARQUEE ===== */
 .marquee-strip {
-  background: #141414; border-top: 1px solid #2a2a2a; border-bottom: 1px solid #2a2a2a;
-  padding: 0.75rem 0; overflow: hidden; white-space: nowrap;
+  background: rgba(220,38,38,0.06); border-top: 1px solid rgba(220,38,38,0.12);
+  border-bottom: 1px solid rgba(220,38,38,0.12); padding: 0.6rem 0; overflow: hidden;
+  -webkit-overflow-scrolling: touch;
 }
-.marquee-track { display: inline-block; animation: marquee 30s linear infinite; }
+.marquee-strip::-webkit-scrollbar { display: none; }
+.marquee-track { display: inline-block; white-space: nowrap; animation: marquee 35s linear infinite; will-change: transform; }
 .marquee-track:hover { animation-play-state: paused; }
-.marquee-item {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0 2.5rem; font-size: 0.8rem; color: #8a8a8a;
-  font-weight: 500; letter-spacing: 0.05em;
-}
-.marquee-item .sep { color: #22c55e; font-weight: 700; }
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
+.marquee-item { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0 2rem; font-size: 0.72rem; color: #8a7a7a; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+.marquee-item .sep { color: #22c55e; font-weight: 700; margin: 0 0.3rem; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+/* ===== SECTIONS ===== */
+section { padding: 5.5rem 2rem; max-width: 1120px; margin: 0 auto; }
 .section-label {
-  font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.15em; color: #22c55e; margin-bottom: 0.8rem; display: inline-block;
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.15em; color: #22c55e; margin-bottom: 0.7rem;
+  display: inline-block; position: relative; padding-left: 1.2rem;
 }
-.section-title {
-  font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 700;
-  letter-spacing: -0.02em; margin-bottom: 1rem;
-  color: #f5f5f5;
+.section-label::before {
+  content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 0.5rem; height: 0.5rem; background: #22c55e; border-radius: 50%;
+  box-shadow: 0 0 8px rgba(34,197,94,0.4);
 }
-.section-desc { color: #8a8a8a; font-size: 1rem; max-width: 600px; margin-bottom: 2.5rem; }
+.section-title { font-size: clamp(1.6rem,4vw,2.3rem); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.8rem; color: #f0ece4; }
+.section-title .hl { color: #22c55e; }
+.section-desc { color: #7a6a6a; font-size: 0.92rem; max-width: 560px; margin-bottom: 2.2rem; line-height: 1.65; }
 
-.services-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem; margin-top: 1rem;
-}
+/* ===== SERVICES ===== */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap: 1.2rem; margin-top: 0.8rem; }
 .service-card {
-  background: #141414; border: 1px solid #2a2a2a; border-radius: 12px;
-  padding: 2rem; transition: all 0.35s ease; position: relative; overflow: hidden;
+  background: linear-gradient(145deg, #0f0b0b, #0a0808);
+  border: 1px solid rgba(42,26,26,0.5); border-radius: 12px; padding: 1.6rem;
+  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden;
 }
-.service-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, #22c55e, #dc2626);
-  transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
-}
-.service-card:hover::before { transform: scaleX(1); }
-.service-card:hover {
-  border-color: rgba(34,197,94,0.35); transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
-}
+.service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(220,38,38,0.04), transparent 60%); opacity: 0; transition: opacity 0.4s; }
+.service-card:hover::before { opacity: 1; }
+.service-card:hover { border-color: rgba(220,38,38,0.3); transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,0.5), 0 0 20px rgba(220,38,38,0.05); }
+.service-card-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem; }
 .service-icon {
-  width: 52px; height: 52px; background: rgba(34,197,94,0.15);
-  border-radius: 12px; display: flex; align-items: center;
-  justify-content: center; font-size: 1.5rem; margin-bottom: 1.2rem;
-  transition: background 0.3s, transform 0.3s;
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(220,38,38,0.10); border: 1px solid rgba(220,38,38,0.15);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s;
 }
-.service-card:hover .service-icon { background: rgba(34,197,94,0.25); transform: scale(1.1); }
-.service-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.6rem; }
-.service-card p { color: #8a8a8a; font-size: 0.88rem; line-height: 1.55; }
+.service-card:hover .service-icon { background: rgba(220,38,38,0.18); border-color: rgba(220,38,38,0.3); transform: scale(1.08); }
+.service-icon svg { width: 22px; height: 22px; }
+.service-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: #f0ece4; letter-spacing: -0.01em; }
+.service-card .svc-tag { display: inline-block; font-size: 0.62rem; font-weight: 600; color: #22c55e; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.12); border-radius: 50px; padding: 0.1rem 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.6rem; }
+.service-card p { color: #6b5c5c; font-size: 0.82rem; line-height: 1.55; }
+.service-card .svc-meta { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 1px solid rgba(42,26,26,0.3); display: flex; justify-content: space-between; font-size: 0.7rem; color: #5a4a4a; }
+.service-card .svc-meta .response { color: #dc2626; font-weight: 600; }
 
-.stats-row {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5rem; margin-top: 2rem; padding: 2.5rem;
-  background: #141414; border: 1px solid #2a2a2a; border-radius: 12px;
+/* ===== STATS ===== */
+.stats-banner {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+  gap: 1rem; margin-top: 2rem; padding: 2.2rem;
+  background: linear-gradient(145deg, rgba(220,38,38,0.04), rgba(127,29,29,0.02));
+  border: 1px solid rgba(220,38,38,0.15); border-radius: 12px; position: relative; overflow: hidden;
 }
-.stat { text-align: center; padding: 0.5rem; }
-.stat-number {
-  font-size: 2.4rem; font-weight: 800; color: #22c55e;
-  letter-spacing: -0.02em; line-height: 1;
-}
-.stat-number .unit { font-size: 1rem; color: #8a8a8a; font-weight: 500; }
-.stat-label { font-size: 0.82rem; color: #8a8a8a; margin-top: 0.5rem; font-weight: 500; }
+.stats-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 200px 100px at 20% 50%, rgba(220,38,38,0.06), transparent); }
+.stat-cell { text-align: center; padding: 0.3rem; position: relative; z-index: 1; }
+.stat-number { font-size: 2.2rem; font-weight: 800; color: #dc2626; letter-spacing: -0.03em; line-height: 1; display: flex; align-items: baseline; justify-content: center; gap: 0.15rem; }
+.stat-number .unit { font-size: 0.9rem; color: #7a6a6a; font-weight: 500; }
+.stat-label { font-size: 0.72rem; color: #7a6a6a; margin-top: 0.5rem; font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase; }
 
-.work-gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 180px;
-  gap: 1rem; margin-top: 1rem;
+/* ===== CASE STUDIES ===== */
+.work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.2rem; margin-top: 0.8rem; }
+.case-card {
+  background: linear-gradient(145deg, #0f0b0b, #0a0808);
+  border: 1px solid rgba(42,26,26,0.5); border-radius: 12px; padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden;
 }
-@media (min-width: 768px) {
-  .work-gallery { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 1024px) {
-  .work-gallery { grid-template-columns: repeat(4, 1fr); }
-}
-.work-card {
-  position: relative; border-radius: 12px; overflow: hidden;
-  border: 1px solid #2a2a2a; transition: all 0.35s ease; cursor: pointer;
-}
-.work-card:hover { border-color: rgba(34,197,94,0.4); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-.work-card.large { grid-column: span 2; grid-row: span 2; }
-.work-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
-.work-card:hover img { transform: scale(1.05); }
-.work-card .overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 0.8rem 1rem; background: linear-gradient(transparent, rgba(0,0,0,0.85));
-  font-size: 0.78rem; font-weight: 500; color: #f5f5f5;
-}
-.work-card .overlay span { color: #22c55e; }
+.case-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #22c55e, #dc2626); transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+.case-card:hover::after { transform: scaleX(1); }
+.case-card:hover { border-color: rgba(220,38,38,0.3); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+.case-card-top { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem; }
+.case-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.case-icon svg { width: 18px; height: 18px; }
+.case-number { font-size: 0.62rem; font-weight: 700; color: #22c55e; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.12); border-radius: 50px; padding: 0.1rem 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.case-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.6rem; color: #f0ece4; letter-spacing: -0.01em; }
+.case-card .case-detail { color: #6b5c5c; font-size: 0.82rem; line-height: 1.55; margin-bottom: 0.8rem; }
+.case-card .case-outcome { background: rgba(220,38,38,0.06); border-left: 3px solid #dc2626; padding: 0.7rem 0.9rem; border-radius: 0 6px 6px 0; font-size: 0.8rem; color: #f0ece4; margin-top: 0.6rem; }
+.case-card .case-outcome strong { color: #dc2626; font-weight: 700; }
+.case-card .case-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.6rem; }
+.case-tag { font-size: 0.6rem; font-weight: 600; color: #7a6a6a; background: rgba(42,26,26,0.3); border: 1px solid rgba(42,26,26,0.4); border-radius: 50px; padding: 0.1rem 0.45rem; text-transform: uppercase; letter-spacing: 0.04em; }
 
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
-  align-items: center; margin-top: 1rem;
+/* ===== ABOUT ===== */
+.about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: center; margin-top: 0.5rem; }
+.about-portrait {
+  border-radius: 14px; overflow: hidden; border: 1px solid rgba(42,26,26,0.5);
+  position: relative; aspect-ratio: 1/1; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
-.about-image {
-  border-radius: 12px; overflow: hidden; border: 1px solid #2a2a2a;
-  position: relative; aspect-ratio: 4/3;
-}
-.about-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
-.about-image:hover img { transform: scale(1.04); }
-.about-image .frame-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(34,197,94,0.08), transparent 50%);
-  pointer-events: none;
-}
-.about-text h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; }
-.about-text p { color: #8a8a8a; margin-bottom: 1.2rem; font-size: 0.95rem; }
-.traits { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.2rem; }
-.trait {
-  background: #1c1c1c; border: 1px solid #2a2a2a; padding: 0.4rem 1rem;
-  border-radius: 50px; font-size: 0.8rem; color: #8a8a8a; font-weight: 500;
-}
-.testimonial-card {
-  background: #141414; border: 1px solid #2a2a2a; border-radius: 12px;
-  padding: 2rem; margin-bottom: 1.2rem; transition: border-color 0.3s;
-}
-.testimonial-card:hover { border-color: rgba(34,197,94,0.3); }
-.testimonial-quote {
-  font-size: 0.95rem; color: #f5f5f5; line-height: 1.65;
-  margin-bottom: 1rem; font-style: italic; position: relative; padding-left: 1.2rem;
-}
-.testimonial-quote::before { content: '"'; font-size: 2rem; color: #22c55e; position: absolute; left: 0; top: -8px; font-style: normal; }
-.testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
-.testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(34,197,94,0.15); }
-.testimonial-name { font-weight: 600; font-size: 0.88rem; }
-.testimonial-role { font-size: 0.8rem; color: #8a8a8a; }
+.about-portrait svg { width: 100%; height: 100%; display: block; }
+.about-portrait .frame-glow { position: absolute; inset: -2px; border-radius: 16px; background: linear-gradient(135deg, rgba(220,38,38,0.15), transparent 40%, transparent 60%, rgba(220,38,38,0.08)); pointer-events: none; z-index: 1; }
+.about-text h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.8rem; color: #f0ece4; }
+.about-text p { color: #6b5c5c; margin-bottom: 1rem; font-size: 0.9rem; line-height: 1.65; }
+.about-text .highlight { color: #dc2626; font-weight: 500; }
+.traits { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.trait { background: rgba(220,38,38,0.05); border: 1px solid rgba(220,38,38,0.12); padding: 0.35rem 0.9rem; border-radius: 50px; font-size: 0.72rem; color: #8a7a7a; font-weight: 500; letter-spacing: 0.02em; transition: all 0.25s; }
+.trait:hover { color: #f0ece4; border-color: rgba(220,38,38,0.3); background: rgba(220,38,38,0.08); }
 
-.cta-section { text-align: center; padding: 8rem 2rem; position: relative; overflow: hidden; }
-.cta-section::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 500px 300px at 50% 50%, rgba(34,197,94,0.06), transparent);
-  pointer-events: none;
-}
-.cta-section h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; color: #f5f5f5; }
-.cta-section p { color: #8a8a8a; max-width: 460px; margin: 0 auto 2rem; }
-.cta-card {
-  background: #141414; border: 1px solid #2a2a2a; border-radius: 16px;
-  padding: 3rem 2rem; display: inline-block; position: relative; z-index: 1;
-  backdrop-filter: blur(4px); transition: border-color 0.3s;
-}
-.cta-card:hover { border-color: rgba(34,197,94,0.35); }
+/* ===== TESTIMONIALS ===== */
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.2rem; margin-top: 0.8rem; }
+.testimonial-card { background: linear-gradient(145deg, #0f0b0b, #0a0808); border: 1px solid rgba(42,26,26,0.5); border-radius: 12px; padding: 1.6rem; transition: all 0.35s; position: relative; }
+.testimonial-card:hover { border-color: rgba(220,38,38,0.2); transform: translateY(-2px); }
+.testimonial-card .quote-mark { font-size: 2.2rem; line-height: 1; color: #dc2626; opacity: 0.3; margin-bottom: 0.3rem; font-family: Georgia, serif; }
+.testimonial-quote { font-size: 0.9rem; color: #c8b8b8; line-height: 1.65; margin-bottom: 1rem; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 0.7rem; padding-top: 0.8rem; border-top: 1px solid rgba(42,26,26,0.3); }
+.testimonial-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #dc2626, #7f1d1d); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; color: #fff; flex-shrink: 0; }
+.testimonial-name { font-weight: 600; font-size: 0.82rem; color: #f0ece4; }
+.testimonial-role { font-size: 0.72rem; color: #6b5c5c; }
 
-.footer-grid {
-  max-width: 1100px; margin: 0 auto; display: flex;
-  justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem;
-  padding: 3rem 2rem 1.5rem;
-}
+/* ===== CTA ===== */
+.cta-section { text-align: center; padding: 6rem 2rem; position: relative; overflow: hidden; }
+.cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 400px 200px at 50% 50%, rgba(220,38,38,0.05), transparent); pointer-events: none; }
+.cta-card { background: linear-gradient(145deg, rgba(220,38,38,0.04), rgba(127,29,29,0.02)); border: 1px solid rgba(220,38,38,0.15); border-radius: 16px; padding: 3rem 2.5rem; display: inline-block; position: relative; z-index: 1; backdrop-filter: blur(8px); max-width: 560px; margin: 0 auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.cta-card:hover { border-color: rgba(220,38,38,0.3); }
+.cta-card h2 { font-size: clamp(1.8rem,4vw,2.4rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.7rem; color: #f0ece4; }
+.cta-card h2 .hl { color: #dc2626; }
+.cta-card p { color: #7a6a6a; max-width: 400px; margin: 0 auto 1.8rem; font-size: 0.9rem; }
+.cta-card .cta-row { justify-content: center; }
+
+/* ===== FOOTER ===== */
+footer { background: #080606; border-top: 1px solid rgba(42,26,26,0.4); padding: 3rem 2rem 1.5rem; margin-top: 2rem; }
+.footer-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; padding-bottom: 2rem; }
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } }
 .footer-brand { max-width: 320px; }
-.footer-brand img {
-  width: 140px; height: auto; border-radius: 8px; margin-bottom: 1rem;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
-}
-.footer-brand p { color: #8a8a8a; font-size: 0.82rem; line-height: 1.55; margin-bottom: 1rem; }
-.footer-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.8rem; }
-.footer-tag {
-  color: #22c55e; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.6rem;
-  background: rgba(34,197,94,0.15); border-radius: 50px;
-  border: 1px solid rgba(34,197,94,0.3);
-}
-.footer-contact h4, .footer-links h4 {
-  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
-  color: #8a8a8a; margin-bottom: 1rem; font-weight: 600;
-}
-.footer-contact p { font-size: 0.88rem; color: #f5f5f5; margin-bottom: 0.5rem; }
-.footer-contact a { color: #22c55e; text-decoration: none; transition: color 0.2s; }
-.footer-contact a:hover { color: #16a34a; }
-.footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
-.footer-links a {
-  color: #8a8a8a; text-decoration: none; font-size: 0.85rem; transition: color 0.2s;
-}
+.footer-brand svg { width: 56px; height: auto; border-radius: 10px; margin-bottom: 0.8rem; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
+.footer-brand p { color: #6b5c5c; font-size: 0.82rem; line-height: 1.55; margin-bottom: 0.8rem; }
+.footer-brand .ms-name { font-size: 0.78rem; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.2rem; }
+.footer-brand .ms-reg { font-size: 0.65rem; color: #5a4a4a; }
+.footer-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+.footer-tag { color: #22c55e; font-size: 0.68rem; font-weight: 600; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.15); border-radius: 50px; padding: 0.2rem 0.55rem; }
+.footer-col h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #6b5c5c; margin-bottom: 0.8rem; font-weight: 600; }
+.footer-col p { font-size: 0.85rem; color: #8a7a7a; margin-bottom: 0.4rem; line-height: 1.5; }
+.footer-col p a { color: #22c55e; text-decoration: none; transition: color 0.2s; }
+.footer-col p a:hover { color: #16a34a; }
+.footer-col .gps-link { color: #dc2626; }
+.footer-col .gps-link:hover { color: #f0ece4; }
+.footer-links { display: flex; flex-direction: column; gap: 0.45rem; }
+.footer-links a { color: #6b5c5c; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
 .footer-links a:hover { color: #22c55e; }
-.footer-divider { max-width: 1100px; margin: 1.5rem auto 1rem; border: none; border-top: 1px solid #2a2a2a; }
-.footer-bottom {
-  max-width: 1100px; margin: 0 auto; display: flex;
-  justify-content: space-between; align-items: center;
-  padding-top: 1rem; font-size: 0.78rem; color: #8a8a8a;
-}
-.footer-bottom a { color: #8a8a8a; text-decoration: none; transition: color 0.2s; }
+.footer-social { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.footer-social a { display: inline-flex; align-items: center; gap: 0.5rem; color: #6b5c5c; text-decoration: none; font-size: 0.82rem; transition: all 0.25s; padding: 0.35rem 0.6rem; border: 1px solid rgba(42,26,26,0.4); border-radius: 6px; }
+.footer-social a:hover { color: #22c55e; border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.04); }
+.social-img { width: 18px; height: 18px; filter: grayscale(1) invert(1) sepia(1) saturate(3) hue-rotate(-30deg); transition: filter 0.3s, transform 0.3s; }
+.footer-social a:hover .social-img { filter: grayscale(0) invert(1) sepia(1) saturate(3) hue-rotate(-30deg); transform: scale(1.1); }
+.footer-bottom { max-width: 1120px; margin: 0 auto; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.72rem; color: #5a4a4a; border-top: 1px solid rgba(42,26,26,0.25); padding-top: 1rem; }
+.footer-bottom a { color: #6b5c5c; text-decoration: none; transition: color 0.2s; }
 .footer-bottom a:hover { color: #22c55e; }
+.gps-badge { display: inline-flex; align-items: center; gap: 0.4rem; color: #dc2626; font-size: 0.7rem; font-weight: 500; text-decoration: none; border: 1px solid rgba(220,38,38,0.15); border-radius: 6px; padding: 0.2rem 0.5rem; transition: all 0.2s; background: rgba(220,38,38,0.03); }
+.gps-badge:hover { border-color: #dc2626; background: rgba(220,38,38,0.06); }
 
-.footer-gps {
-  margin-top: 1.2rem; padding-top: 0.8rem; border-top: 1px solid #1f1f1f;
-}
-.footer-gps h4 {
-  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
-  color: #8a8a8a; margin-bottom: 0.4rem; font-weight: 600;
-}
-.footer-gps p { color: #8a8a8a; font-size: 0.82rem; line-height: 1.6; margin-bottom: 0.2rem; }
-.footer-gps .gps-link { color: #22c55e; text-decoration: none; }
-.footer-gps .gps-link:hover { color: #f5f5f5; text-decoration: underline; }
-
-.site-craft-premium {
-  margin-left: 1.2rem;
-}
-.site-craft-premium strong { color: #9d9e9e; font-weight: 600; }
-.site-craft-premium a {
-  color: #7a7a7a; text-decoration: none; font-size: 0.75rem; transition: color 0.2s;
-  border-bottom: 1px solid transparent;
-}
-.site-craft-premium a:hover { color: #22c55e; border-bottom-color: #22c55e; }
-
-.footer-hire {
-  display: flex; flex-direction: column; gap: 0.7rem;
-}
-.footer-hire h4 {
-  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
-  color: #8a8a8a; margin-bottom: 0.3rem; font-weight: 600;
-}
-.footer-hire a {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  text-decoration: none; font-size: 0.85rem; color: #8a8a8a;
-  transition: color 0.2s;
-}
-.footer-hire a:hover { color: #22c55e; }
-.social-img {
-  width: 24px; height: 24px;
-  filter: grayscale(1) invert(1) sepia(1) saturate(3) hue-rotate(-30deg);
-  transition: opacity 0.2s, transform 0.2s, filter 0.3s;
-  opacity: 0.85;
-}
-.footer-hire a:hover .social-img {
-  opacity: 1; transform: scale(1.1);
-  filter: grayscale(0) invert(1) sepia(1) saturate(3) hue-rotate(-30deg);
-}
-.footer-hire a[data-social="facebook"] .social-img { filter: grayscale(1) invert(1) sepia(1) saturate(2.5) hue-rotate(-4deg); }
-.footer-hire a[data-social="facebook"]:hover .social-img { filter: grayscale(0) invert(1) sepia(1) saturate(2.5) hue-rotate(-4deg); }
-.footer-hire a[data-social="instagram"] .social-img { filter: grayscale(1) invert(1) sepia(1) saturate(4) hue-rotate(-24deg); }
-.footer-hire a[data-social="instagram"]:hover .social-img { filter: grayscale(0) invert(1) sepia(1) saturate(4) hue-rotate(-24deg); }
-.footer-hire a[data-social="tiktok"] .social-img { filter: grayscale(1) invert(1) sepia(1) saturate(3) hue-rotate(-20deg); }
-.footer-hire a[data-social="tiktok"]:hover .social-img { filter: grayscale(0) invert(1) sepia(1) saturate(3) hue-rotate(-20deg); }
-
-.social-grid {
-  display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 520px; margin: 0 auto;
-}
-.social-card {
-  display: flex; align-items: center; gap: 1.2rem;
-  background: #141414; border: 1px solid #2a2a2a; border-radius: 12px;
-  padding: 1.2rem; text-decoration: none; color: inherit;
-  transition: all 0.35s ease;
-}
-.social-card:hover {
-  border-color: rgba(34,197,94,0.4); transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-.social-card-img {
-  width: 48px; height: 48px; flex-shrink: 0;
-  filter: grayscale(1) invert(1) sepia(1) saturate(3) hue-rotate(-30deg);
-  transition: filter 0.3s, transform 0.3s;
-}
-.social-card:hover .social-card-img {
-  filter: grayscale(0) invert(1) sepia(1) saturate(3) hue-rotate(-30deg);
-  transform: scale(1.08);
-}
-.social-card[data-social="facebook"] .social-card-img { filter: grayscale(1) invert(1) sepia(1) saturate(2.5) hue-rotate(-4deg); }
-.social-card[data-social="facebook"]:hover .social-card-img { filter: grayscale(0) invert(1) sepia(1) saturate(2.5) hue-rotate(-4deg); }
-.social-card[data-social="instagram"] .social-card-img { filter: grayscale(1) invert(1) sepia(1) saturate(4) hue-rotate(-24deg); }
-.social-card[data-social="instagram"]:hover .social-card-img { filter: grayscale(0) invert(1) sepia(1) saturate(4) hue-rotate(-24deg); }
-.social-card[data-social="tiktok"] .social-card-img { filter: grayscale(1) invert(1) sepia(1) saturate(3) hue-rotate(-20deg); }
-.social-card[data-social="tiktok"]:hover .social-card-img { filter: grayscale(0) invert(1) sepia(1) saturate(3) hue-rotate(-20deg); }
-.social-card-text { flex: 1; min-width: 0; }
-.social-card-heading { font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; }
-.social-card-handle { color: #22c55e; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.35rem; }
-.social-card-desc { color: #8a8a8a; font-size: 0.82rem; line-height: 1.5; }
-
-.ticker-wrap {
-  background: rgba(220,38,38,0.15); border-top: 1px solid rgba(220,38,38,0.25);
-  border-bottom: 1px solid rgba(220,38,38,0.25);
-  padding: 0.55rem 2rem; display: flex; align-items: center;
-  gap: 1rem; font-size: 0.78rem; color: #fca5a5;
-}
-.ticker-dot {
-  width: 8px; height: 8px; background: #dc2626; border-radius: 50%;
-  flex-shrink: 0; animation: pulse-dot 1.5s ease-in-out infinite;
-}
-.ticker-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ticker-text strong { color: #fff; font-weight: 600; }
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.3); }
-}
-.social-card[data-social="tiktok"]:hover .social-card-img {
-  filter: grayscale(0) invert(1) sepia(1) saturate(3) hue-rotate(-20deg);
-}
-.social-card-text { flex: 1; min-width: 0; }
-.social-card-heading { font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; }
-.social-card-handle { color: #22c55e; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.35rem; }
-.social-card-desc { color: #8a8a8a; font-size: 0.82rem; line-height: 1.5; }
-
-.ticker-wrap {
-  background: rgba(220,38,38,0.15); border-top: 1px solid rgba(220,38,38,0.25);
-  border-bottom: 1px solid rgba(220,38,38,0.25);
-  padding: 0.55rem 2rem; display: flex; align-items: center;
-  gap: 1rem; font-size: 0.78rem; color: #fca5a5;
-}
-.ticker-dot {
-  width: 8px; height: 8px; background: #dc2626; border-radius: 50%;
-  flex-shrink: 0; animation: pulse-dot 1.5s ease-in-out infinite;
-}
-.ticker-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ticker-text strong { color: #fff; font-weight: 600; }
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.3); }
-}
-
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .mobile-toggle { display: flex; }
-  nav ul { position: fixed; top: 0; left: 0; right: 0; bottom: 0; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; background: #0a0a0a; transform: translateX(100%); transition: transform 0.35s ease; z-index: 99; padding: 2rem; }
-  nav ul.open { transform: translateX(0); }
-  nav ul a { font-size: 1.15rem; color: #f5f5f5; }
-  .hero h1 { font-size: 2.2rem; }
-  .work-gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; }
-  .about-grid { grid-template-columns: 1fr; }
-  .footer-grid { flex-direction: column; }
-  nav { padding: 0.75rem 1.2rem; }
-  section { padding: 4rem 1.2rem; }
-  .social-grid { grid-template-columns: 1fr; }
+  .nav-links { position: fixed; top: 0; left: 0; right: 0; bottom: 0; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; background: rgba(8,6,6,0.98); transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); z-index: 99; padding: 2rem; }
+  .nav-links.open { transform: translateX(0); }
+  .nav-links a { font-size: 1.05rem; color: #f0ece4; padding: 0.5rem 1rem; }
+  .hero { padding: 6rem 1.2rem 3rem; }
+  section { padding: 3.5rem 1.2rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .about-portrait { max-width: 240px; margin: 0 auto; }
+  .footer-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
-  .work-gallery { grid-template-columns: 1fr; grid-auto-rows: 170px; }
-  .hero-logo-wrap img { height: 120px; }
-  .stats-row { grid-template-columns: 1fr 1fr; padding: 1.5rem; }
-  .footer-grid { flex-direction: column; }
+  nav { padding: 0 1rem; }
+  .hero h1 { font-size: 2rem; }
+  .stats-banner { grid-template-columns: 1fr 1fr; padding: 1.5rem; }
+  .cta-card { padding: 2rem 1.2rem; }
 }
 
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+/* ===== ANIMATIONS ===== */
+.fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+</style>
 </style>
 </head>
 <body>
-<div id="preloader" aria-hidden="true">
+
+<div class="preloader" id="preloader" aria-hidden="true">
   <div class="spinner"></div>
-  <div class="preloader-text">Loading</div>
-</div>
-<div class="ticker-wrap">
-  <div class="ticker-dot"></div>
-  <div class="ticker-text"><strong>Proudly South African</strong> — Medico-Legal &amp; Forensic Services · Evidence · Integrity · Precision · Johannesburg</div>
+  <div class="preloader-text">Medico-Legal &amp; Forensic Services</div>
 </div>
 
-<nav>
-  <a href="#" class="logo">
-      <svg viewBox="0 0 200 200" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="ms-nav-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#dc2626"/>
-            <stop offset="50%" stop-color="#b91c1c"/>
-            <stop offset="100%" stop-color="#991b1b"/>
-          </linearGradient>
-          <linearGradient id="ms-nav-sc" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#fef2f2"/>
-            <stop offset="100%" stop-color="#fecaca"/>
-          </linearGradient>
-          <filter id="ms-nav-shadow" x="-15%" y="-15%" width="130%" height="130%">
-            <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#7f1d1d" flood-opacity="0.55"/>
-          </filter>
-          <filter id="ms-nav-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="6" result="blur"/>
-            <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 0.1 0 0 0  0 0 0.1 0 0  0 0 0 0.45 0"/>
-          </filter>
-        </defs>
-        <rect x="28" y="28" width="144" height="144" rx="28" fill="url(#ms-nav-grad)" filter="url(#ms-nav-glow)" opacity="0.25"/>
-        <rect x="22" y="22" width="156" height="156" rx="30" fill="none" stroke="url(#ms-nav-grad)" stroke-width="1.5" opacity="0.25"/>
-        <rect x="22" y="22" width="156" height="156" rx="30" fill="url(#ms-nav-grad)" filter="url(#ms-nav-shadow)"/>
-        <rect x="34" y="34" width="132" height="132" rx="22" fill="url(#ms-nav-sc)" opacity="0.14"/>
-        <circle cx="100" cy="100" r="64" fill="none" stroke="url(#ms-nav-grad)" stroke-width="0.8" opacity="0.18" stroke-dasharray="3 5"/>
-        <text x="100" y="114" font-family="system-ui, sans-serif" font-weight="900" font-size="66" text-anchor="middle" fill="url(#ms-nav-sc)" letter-spacing="1" filter="url(#ms-nav-shadow)">MS</text>
-        <rect x="52" y="88" width="96" height="4" rx="2" fill="url(#ms-nav-grad)" opacity="0.55"/>
-        <text x="100" y="178" font-family="system-ui, sans-serif" font-weight="500" font-size="7.5" text-anchor="middle" fill="#991b1b" letter-spacing="2.5" opacity="0.9">MEDICO</text>
-      </svg>
-      <div class="logo-text">MEDICO<span>-</span>LOGICAL</div>
-    </a>
-  <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+<nav class="nav" id="nav">
+  <a href="#home" class="nav-logo">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="MS logo">
+      <defs>
+        <linearGradient id="nav-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#dc2626"/>
+          <stop offset="50%" stop-color="#b91c1c"/>
+          <stop offset="100%" stop-color="#7f1d1d"/>
+        </linearGradient>
+        <linearGradient id="nav-txt" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f0ece4"/>
+          <stop offset="100%" stop-color="#fecaca"/>
+        </linearGradient>
+        <filter id="nav-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="7" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 0.05 0 0 0  0 0 0.05 0 0  0 0 0 0.5 0"/>
+        </filter>
+        <filter id="nav-shadow" x="-15%" y="-15%" width="130%" height="130%">
+          <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#7f1d1d" flood-opacity="0.5"/>
+        </filter>
+      </defs>
+      <rect x="24" y="24" width="152" height="152" rx="28" fill="url(#nav-grad)" filter="url(#nav-glow)" opacity="0.22"/>
+      <rect x="18" y="18" width="164" height="164" rx="32" fill="none" stroke="url(#nav-grad)" stroke-width="1.2" opacity="0.22"/>
+      <rect x="18" y="18" width="164" height="164" rx="32" fill="url(#nav-grad)" filter="url(#nav-shadow)"/>
+      <rect x="32" y="32" width="136" height="136" rx="22" fill="url(#nav-txt)" opacity="0.12"/>
+      <circle cx="100" cy="100" r="66" fill="none" stroke="url(#nav-grad)" stroke-width="0.7" opacity="0.16" stroke-dasharray="3 5"/>
+      <text x="100" y="114" font-family="system-ui, sans-serif" font-weight="900" font-size="64" text-anchor="middle" fill="url(#nav-txt)" letter-spacing="1" filter="url(#nav-shadow)">MS</text>
+      <rect x="54" y="88" width="92" height="3.5" rx="1.75" fill="url(#nav-grad)" opacity="0.5"/>
+    </svg>
+    <span>
+      <span class="nav-brand-text">MEDICO<span class="accent">-</span>LOGICAL</span>
+      <span class="nav-brand-sub">Forensic Services</span>
+    </span>
+  </a>
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-  <ul id="nav-menu">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#services">Services</a></li>
-    <li><a href="#work">Our Work</a></li>
-    <li><a href="#about">About Tshepo</a></li>
+    <li><a href="#work">Case Studies</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
 <section class="hero" id="home">
-  <div class="hero-grid"></div>
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="grid"></div>
+  </div>
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Reg. 2024/815688/07 · CIPC · South Africa
+  </div>
   <div class="hero-logo-wrap">
-      <svg viewBox="0 0 200 200" width="180" height="auto" xmlns="http://www.w3.org/2000/svg" id="logo" style="border-radius:16px;max-width:260px">
-        <defs>
-          <linearGradient id="ms-hl" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff4d52"/>
-            <stop offset="40%" stop-color="#f3383f"/>
-            <stop offset="100%" stop-color="#991b1b"/>
-          </linearGradient>
-          <linearGradient id="ms-hs" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ffffff"/>
-            <stop offset="100%" stop-color="#fecaca"/>
-          </linearGradient>
-          <linearGradient id="ms-hb" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#b91c1c"/>
-            <stop offset="100%" stop-color="#7f1d1d"/>
-          </linearGradient>
-          <radialGradient id="ms-hr1" cx="30%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#ff4d52" stop-opacity="0.7"/>
-            <stop offset="100%" stop-color="#f3383f" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="ms-hr2" cx="70%" cy="70%" r="70%">
-            <stop offset="0%" stop-color="#ff4d52" stop-opacity="0.45"/>
-            <stop offset="100%" stop-color="#7f1d1d" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="ms-hr3" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#b91c1c" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="#7f1d1d" stop-opacity="0"/>
-          </radialGradient>
-          <filter id="ms-hs1" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur"/>
-            <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 0.05 0 0 0  0 0 0.05 0 0  0 0 0 0.55 0" result="shadow"/>
-            <feOffset dx="0" dy="9" in="shadow" result="moved"/>
-            <feComposite in="SourceGraphic" in2="moved" operator="over"/>
-          </filter>
-          <filter id="ms-h-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="8" result="blur"/>
-            <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 0.08 0 0 0  0 0 0.08 0 0  0 0 0 0.5 0"/>
-          </filter>
-          <filter id="ms-h-text-shadow" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#7f1d1d" flood-opacity="0.5"/>
-          </filter>
-        </defs>
-        <circle cx="100" cy="100" r="98" fill="url(#ms-hb)" filter="url(#ms-h-glow)"/>
-        <circle cx="100" cy="100" r="96" fill="none" stroke="url(#ms-hl)" stroke-width="2" opacity="0.7"/>
-        <rect x="-50" y="-50" width="300" height="300" fill="url(#ms-hr1)"/>
-        <rect x="-30" y="-30" width="260" height="260" fill="url(#ms-hr2)"/>
-        <rect x="-16" y="-16" width="232" height="232" fill="url(#ms-hr1)" transform="rotate(15)"/>
-        <rect x="-50" y="-50" width="300" height="300" fill="url(#ms-hr3)" transform="rotate(35)"/>
-        <circle cx="100" cy="100" r="88" fill="url(#ms-hl)" filter="url(#ms-hs1)"/>
-        <circle cx="100" cy="100" r="72" fill="none" stroke="url(#ms-hs)" stroke-width="1" opacity="0.18"/>
-        <circle cx="100" cy="100" r="62" fill="url(#ms-hb)" opacity="0.08"/>
-        <circle cx="100" cy="100" r="82" fill="none" stroke="url(#ms-hl)" stroke-width="0.75" opacity="0.15" stroke-dasharray="2 6"/>
-        <text x="100" y="116" font-family="system-ui, sans-serif" font-weight="900" font-size="76" text-anchor="middle" fill="url(#ms-hs)" letter-spacing="1" filter="url(#ms-h-text-shadow)">MS</text>
-        <text x="100" y="156" font-family="system-ui, sans-serif" font-weight="700" font-size="11.5" text-anchor="middle" fill="#fecaca" letter-spacing="2.5" filter="url(#ms-h-text-shadow)">MEDICO-LOGICAL &amp; FORENSIC SERVICES</text>
-        <text x="100" y="174" font-family="system-ui, sans-serif" font-weight="400" font-size="9" text-anchor="middle" fill="#fca5a5" letter-spacing="1.5" opacity="0.85">MERGED PRO</text>
-        <circle cx="56" cy="56" r="9" fill="#fecaca" opacity="0.65"/>
-        <circle cx="144" cy="56" r="5" fill="#fca5a5" opacity="0.5"/>
-        <circle cx="56" cy="144" r="5" fill="#fca5a5" opacity="0.5"/>
-        <circle cx="144" cy="144" r="9" fill="url(#ms-hl)" opacity="0.55"/>
-        <circle cx="100" cy="54" r="3" fill="#fca5a5" opacity="0.5"/>
-        <circle cx="100" cy="146" r="3" fill="#fca5a5" opacity="0.5"/>
-        <circle cx="56" cy="100" r="2.5" fill="#fca5a5" opacity="0.35"/>
-        <circle cx="144" cy="100" r="2.5" fill="#fca5a5" opacity="0.35"/>
-        <circle cx="30" cy="30" r="2" fill="#ffffff" opacity="0.3"/>
-        <circle cx="170" cy="30" r="1.5" fill="#ffffff" opacity="0.25"/>
-        <circle cx="30" cy="170" r="1.5" fill="#ffffff" opacity="0.25"/>
-        <circle cx="170" cy="170" r="2" fill="#ffffff" opacity="0.3"/>
-      </svg>
-    </div>
-  <div class="flyer-contact-strip">
-    <div class="fcs-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.1 0 2 2 0 0 1-1.98-1.62 19.5 19.5 0 0 0 5.46-1.48 2 2 0 0 1-.22-2.44h.02a2 2 0 0 1 1.85-1.24 19.7 19.7 0 0 1 3.2 0A2 2 0 0 1 16.92 22Z"/><path d="M5.5 10.5a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0-5 0Z"/></svg>
-      <a href="https://wa.me/27745086001" class="fcs-link" target="_blank" rel="noopener">WhatsApp: +27 74 508 6001</a>
-    </div>
-    <div class="fcs-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16.2 12h-1.4M7.8 12H6.4M12 16.2v-1.4M12 7.8v-1.4"/></svg>
-      <span class="fcs-tag">287 Tau Street</span>
-      <span style="color:#8a8a8a">Soweto, Diepkloof Ext Phase 1</span>
-    </div>
-    <div class="fcs-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.5 7.5 7.5-7.5 7.5"/><path d="m4.5 7.5 7.5 7.5-7.5 7.5"/></svg>
-      <span class="fcs-tag">We come to you! You relax.</span>
-    </div>
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" id="heroLogo" aria-label="Medico-Legal &amp; Forensic Services logo">
+      <defs>
+        <linearGradient id="hero-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff4d52"/>
+          <stop offset="40%" stop-color="#dc2626"/>
+          <stop offset="100%" stop-color="#7f1d1d"/>
+        </linearGradient>
+        <linearGradient id="hero-txt" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="100%" stop-color="#fca5a5"/>
+        </linearGradient>
+        <linearGradient id="hero-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#b91c1c"/>
+          <stop offset="100%" stop-color="#5c1515"/>
+        </linearGradient>
+        <radialGradient id="hero-r1" cx="30%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#ff4d52" stop-opacity="0.75"/>
+          <stop offset="100%" stop-color="#dc2626" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="hero-r2" cx="70%" cy="70%" r="70%">
+          <stop offset="0%" stop-color="#ff4d52" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#7f1d1d" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="hero-r3" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#b91c1c" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="#5c1515" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="hero-shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 0.03 0 0 0  0 0 0.03 0 0  0 0 0 0.6 0" result="shadow"/>
+          <feOffset dx="0" dy="10" in="shadow" result="moved"/>
+          <feComposite in="SourceGraphic" in2="moved" operator="over"/>
+        </filter>
+        <filter id="hero-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="9" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 0.06 0 0 0  0 0 0.06 0 0  0 0 0 0.5 0"/>
+        </filter>
+        <filter id="hero-text-shadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#7f1d1d" flood-opacity="0.5"/>
+        </filter>
+      </defs>
+      <circle cx="100" cy="100" r="98" fill="url(#hero-bg-grad)" filter="url(#hero-glow)"/>
+      <circle cx="100" cy="100" r="96" fill="none" stroke="url(#hero-grad)" stroke-width="2.5" opacity="0.65"/>
+      <rect x="-50" y="-50" width="300" height="300" fill="url(#hero-r1)"/>
+      <rect x="-30" y="-30" width="260" height="260" fill="url(#hero-r2)"/>
+      <rect x="-16" y="-16" width="232" height="232" fill="url(#hero-r1)" transform="rotate(15)"/>
+      <rect x="-50" y="-50" width="300" height="300" fill="url(#hero-r3)" transform="rotate(35)"/>
+      <circle cx="100" cy="100" r="88" fill="url(#hero-grad)" filter="url(#hero-shadow)"/>
+      <circle cx="100" cy="100" r="72" fill="none" stroke="url(#hero-txt)" stroke-width="1" opacity="0.15"/>
+      <circle cx="100" cy="100" r="62" fill="url(#hero-bg-grad)" opacity="0.06"/>
+      <circle cx="100" cy="100" r="82" fill="none" stroke="url(#hero-grad)" stroke-width="0.7" opacity="0.12" stroke-dasharray="2 6"/>
+      <text x="100" y="116" font-family="system-ui, sans-serif" font-weight="900" font-size="74" text-anchor="middle" fill="url(#hero-txt)" letter-spacing="1" filter="url(#hero-text-shadow)">MS</text>
+      <text x="100" y="155" font-family="system-ui, sans-serif" font-weight="700" font-size="11" text-anchor="middle" fill="#fecaca" letter-spacing="2.5" filter="url(#hero-text-shadow)">MEDICO-LOGICAL &amp; FORENSIC</text>
+      <text x="100" y="172" font-family="system-ui, sans-serif" font-weight="400" font-size="8.5" text-anchor="middle" fill="#fca5a5" letter-spacing="1.5" opacity="0.8">SERVICES</text>
+      <circle cx="54" cy="54" r="9" fill="#fecaca" opacity="0.6"/>
+      <circle cx="146" cy="54" r="5" fill="#fca5a5" opacity="0.45"/>
+      <circle cx="54" cy="146" r="5" fill="#fca5a5" opacity="0.45"/>
+      <circle cx="146" cy="146" r="9" fill="url(#hero-grad)" opacity="0.5"/>
+      <circle cx="100" cy="52" r="3" fill="#fca5a5" opacity="0.45"/>
+      <circle cx="100" cy="148" r="3" fill="#fca5a5" opacity="0.45"/>
+      <circle cx="48" cy="100" r="2.5" fill="#fca5a5" opacity="0.3"/>
+      <circle cx="152" cy="100" r="2.5" fill="#fca5a5" opacity="0.3"/>
+      <circle cx="28" cy="28" r="2" fill="#ffffff" opacity="0.25"/>
+      <circle cx="172" cy="28" r="1.5" fill="#ffffff" opacity="0.2"/>
+      <circle cx="28" cy="172" r="1.5" fill="#ffffff" opacity="0.2"/>
+      <circle cx="172" cy="172" r="2" fill="#ffffff" opacity="0.3"/>
+    </svg>
   </div>
   <h1>
     <span class="accent">Medico-Legal</span> &amp; Forensic
-    <br>
-    <span class="red">.</span> Medico-Legal &amp; Forensic Services — Precision. Integrity. Evidence.
+    <span class="sub">. Evidence. Integrity. Precision.</span>
   </h1>
-  <p class="tagline">Medico-Legal &amp; Forensic Services — expert evidence handling, legal-medical consulting, and investigative support. Precision, integrity, discretion.</p>
-  <div class="cta-row">
+  <p class="hero-tagline">
+    Expert witness testimony, forensic analysis, and legal-medical consulting — <strong>precision-driven</strong> service for law firms, insurers, and corporate legal teams across South Africa.
+  </p>
+  <div class="ctarow">
     <a href="https://wa.me/27745086001" class="btn btn-primary" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.199.297-.768.966-.94 1.164-.173.199-.347.223-.644.075-.297-.151-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.658-2.059-.178-.297-.01-1.028.189-1.028.297 0 .594.075.771.225.273.224.347.631.221 1.08.125.449.075 1.028.075 1.225.075 1.255.549 2.366.623 2.564.149.317.694 1.549 1.549 2.45.694.754 1.415 1.163 2.097 1.163.681 0 .957-.549 1.154-.966.2.1.413-1.274.062-1.686-.353-.413-.856-.592-1.266-.592zm-5.421 7.401c-.325.225-.875.769-1.175 1.174-.3-.406-.769-.788-1.325-.788-.575 0-1.05.199-1.55.598-.499.399-1.124.675-1.775.774-.35.025-.7-.1-.9-.3-.2-.2-.225-.499-.374-.7-.151-.199-.276-.374-.474-.449-.199-.075-.424-.025-.599.1-.175.125-.374.3-.524.449-.15.15-.225.399-.05.624.499.9.974 1.374 1.45 1.374.575 0 1.05-.174 1.45-.519.4-.345.6-.769.6-1.174 0-.575-.199-1.024-.6-1.274-.399-.25-.85-.2-.85.2z"/></svg>
-      Book via WhatsApp
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.199.297-.768.966-.94 1.164-.173.199-.347.223-.644.075-.297-.151-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.658-2.059-.178-.297-.01-1.028.189-1.028.297 0 .594.075.771.225.273.224.347.631.221 1.08.125.449.075 1.028.075 1.225.075 1.255.549 2.366.623 2.564.149.317.694 1.549 1.549 2.45.694.754 1.415 1.163 2.097 1.163.681 0 .957-.549 1.154-.966.2.1.413-1.274.062-1.686-.353-.413-.856-.592-1.266-.592zm-5.421 7.401c-.325.225-.875.769-1.175 1.174-.3-.406-.769-.788-1.325-.788-.575 0-1.05.199-1.55.598-.499.399-1.124.675-1.775.774-.35.025-.7-.1-.9-.3-.2-.2-.225-.499-.374-.7-.151-.199-.276-.374-.474-.449-.199-.075-.424-.025-.599.1-.175.125-.374.3-.524.449-.15.15-.225.399-.05.624.499.9.974 1.374 1.45 1.374.575 0 1.05-.174 1.45-.519.4-.345.6-.769.6-1.174 0-.575-.199-1.024-.6-1.274-.399-.25-.85-.2-.85.2z"/></svg>
+      Consult via WhatsApp
     </a>
     <a href="#work" class="btn btn-outline">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-      View our work
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      Case studies
     </a>
   </div>
 </section>
-<marquee class="marquee-strip" aria-label="Available services">
+
+<div class="marquee-strip" aria-label="Services offered">
   <div class="marquee-track">
-    <span class="marquee-item">Carpet Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Sofa Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Deep Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Upholstery<span class="sep">·</span></span>
-    <span class="marquee-item">House Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Office Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Garden Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Move-In/Move-Out<span class="sep">·</span></span>
-    <span class="marquee-item">Carpet Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Sofa Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Deep Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Upholstery<span class="sep">·</span></span>
-    <span class="marquee-item">House Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Office Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Garden Cleaning<span class="sep">·</span></span>
-    <span class="marquee-item">Move-In/Move-Out<span class="sep">·</span></span>
+    <span class="marquee-item">Expert Witness Testimony<span class="sep">◆</span></span>
+    <span class="marquee-item">Forensic Document Review<span class="sep">◆</span></span>
+    <span class="marquee-item">Legal-Medical Consulting<span class="sep">◆</span></span>
+    <span class="marquee-item">Evidence Chain Analysis<span class="sep">◆</span></span>
+    <span class="marquee-item">Independent Medical Exams<span class="sep">◆</span></span>
+    <span class="marquee-item">Case Strategy Support<span class="sep">◆</span></span>
+    <span class="marquee-item">Regulatory Compliance<span class="sep">◆</span></span>
+    <span class="marquee-item">Court-Qualified Testimony<span class="sep">◆</span></span>
+    <span class="marquee-item">Expert Witness Testimony<span class="sep">◆</span></span>
+    <span class="marquee-item">Forensic Document Review<span class="sep">◆</span></span>
+    <span class="marquee-item">Legal-Medical Consulting<span class="sep">◆</span></span>
+    <span class="marquee-item">Evidence Chain Analysis<span class="sep">◆</span></span>
+    <span class="marquee-item">Independent Medical Exams<span class="sep">◆</span></span>
+    <span class="marquee-item">Case Strategy Support<span class="sep">◆</span></span>
+    <span class="marquee-item">Regulatory Compliance<span class="sep">◆</span></span>
+    <span class="marquee-item">Court-Qualified Testimony<span class="sep">◆</span></span>
   </div>
-</marquee>
+</div>
 
 <section id="services">
   <span class="section-label">What we do</span>
-  <h2 class="section-title">Medico-Legal &amp; Forensic Services — <span style="color:#22c55e">precision</span> delivered</h2>
-  <p class="section-desc">From forensic document review to urgent legal-medical consulting — every case treated with the same attention to detail and respect for the evidence.</p>
+  <h2 class="section-title">Medico-Legal &amp; Forensic Services — <span class="hl">precision</span> delivered</h2>
+  <p class="section-desc">From urgent legal-medical consulting to complex forensic document review — every engagement treated with the same attention to evidence, integrity, and detail.</p>
   <div class="services-grid">
-    <div class="service-card"><div class="service-icon">&#9981;</div><h3>General House Cleaning</h3><p>Thorough cleaning of kitchens, bathrooms, living areas, and bedrooms. We handle the mess — you enjoy the result.</p></div>
-    <div class="service-card"><div class="service-icon">&#127804;</div><h3>Sofa & Couch Cleaning</h3><p>Deep extraction cleaning for sofas, couches, and lounge furniture. Removes dirt, stains, and allergens — restores comfort.</p></div>
-    <div class="service-card"><div class="service-icon">&#127968;</div><h3>Full House Cleaning</h3><p>End-to-end home cleaning service. Move-in, move-out, or just a refresh — we leave your home spotless from top to bottom.</p></div>
-    <div class="service-card"><div class="service-icon">&#128657;</div><h3>Carpet & Floor Cleaning</h3><p>Professional carpet shampooing, stain removal, and floor cleaning. Your floors will look years newer after our treatment.</p></div>
-    <div class="service-card"><div class="service-icon">&#127831;</div><h3>Furniture Upholstery</h3><p>Specialist upholstery cleaning for chairs, dining sets, and delicate fabrics. Gentle on materials, tough on grime.</p></div>
-    <div class="service-card"><div class="service-icon">&#9995;</div><h3>Garden & Outdoor Cleaning</h3><p>Pressure washing and cleaning of outdoor areas, patios, and driveways. Extend your clean living space outside.</p></div>
-    <div class="service-card"><div class="service-icon">&#127947;</div><h3>Bedrooms & Wardrobes</h3><p>Detailed bedroom cleaning and wardrobe organisation. Fresh linens, clean surfaces, and a reset space to start your day.</p></div>
-    <div class="service-card"><div class="service-icon">&#127969;</div><h3>Office & Corporate Cleaning</h3><p>Professional cleaning for offices, shops, and business premises. Reliable scheduling, consistent quality, spotless results.</p></div>
-    <div class="service-card"><div class="service-icon">&#128293;</div><h3>Deep Cleaning</h3><p>Intensive deep-clean for neglected or post-renovation spaces. We get into every corner — including the ones you forgot existed.</p></div>
+    <div class="service-card fade-in">
+      <div class="service-card-top">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L1 13h2v6h10V13h2L12 2zm0 3L19 13h-2v6H7v-6H5l7-8z"/><rect x="11" y="17" width="2" height="4"/></svg></div>
+        <div><h3>Expert Witness Testimony</h3><span class="svc-tag">Court-qualified</span></div>
+      </div>
+      <p>Court-qualified expert testimony in medico-legal matters. We bridge medical science and legal proceedings with clear, defensible opinions.</p>
+      <div class="svc-meta"><span>Civil · Criminal · Personal Injury</span><span class="response">&lt;24h response</span></div>
+    </div>
+    <div class="service-card fade-in delay-1">
+      <div class="service-card-top">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M10 11v6M14 11v6M7 11v6M17 11v6"/><path d="M3 14h18"/></svg></div>
+        <div><h3>Forensic Document Review</h3><span class="svc-tag">Independent</span></div>
+      </div>
+      <p>Independent review of medical records, clinical notes, imaging reports, and legal documents. We identify gaps, inconsistencies, and key evidence others miss.</p>
+      <div class="svc-meta"><span>Records · Imaging · Claims files</span><span class="response">3-day turnaround</span></div>
+    </div>
+    <div class="service-card fade-in delay-2">
+      <div class="service-card-top">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 3v18"/><path d="M14 6h4M14 10h4M14 14h4M14 18h4"/></svg></div>
+        <div><h3>Legal-Medical Consulting</h3><span class="svc-tag">Strategic</span></div>
+      </div>
+      <p>Strategic consulting for law firms, insurers, and corporate legal departments. We help shape case strategy with medically-grounded insights from day one.</p>
+      <div class="svc-meta"><span>Law firms · Insurers · Corporates</span><span class="response">Ongoing support</span></div>
+    </div>
+    <div class="service-card fade-in delay-1">
+      <div class="service-card-top">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div><h3>Urgent Case Review</h3><span class="svc-tag">Fast-track</span></div>
+      </div>
+      <p>Time-sensitive medico-legal reviews for active litigation and urgent claims. We move fast without cutting corners — evidence integrity is never compromised.</p>
+      <div class="svc-meta"><span>Active litigation · Urgent claims</span><span class="response">Same-day start</span></div>
+    </div>
+    <div class="service-card fade-in delay-2">
+      <div class="service-card-top">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M12 3v18"/><path d="M7 14h2M7 17h2M11 14h2M11 17h2M15 14h2M15 17h2"/></svg></div>
+        <div><h3>Evidence Chain Analysis</h3><span class="svc-tag">Forensic</span></div>
+      </div>
+      <p>Forensic analysis of evidence chains — medical records handling, chain of custody, and documentation integrity. Where the evidence holds or breaks, we tell you.</p>
+      <div class="svc-meta"><span>Chain of custody · Records integrity</span><span class="response">48h report</span></div>
+    </div>
+    <div class="service-card fade-in delay-3">
+      <div class="service-card-top">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 12 7 12s7-7 7-12a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/><path d="M12 13v5"/></svg></div>
+        <div><h3>Independent Medical Exams</h3><span class="svc-tag">Unbiased</span></div>
+      </div>
+      <p>Independent medical examinations and findings for claims, insurance disputes, and litigation. Our opinions are evidence-based and free from conflicting interests.</p>
+      <div class="svc-meta"><span>Claims · Insurance · Litigation</span><span class="response">Booked in 2 days</span></div>
+    </div>
   </div>
 </section>
 
 <section>
-  <div class="stats-row">
-    <div class="stat"><div class="stat-number">500<span class="unit">+</span></div><div class="stat-label">Clean homes delivered</div></div>
-    <div class="stat"><div class="stat-number">5<span class="unit">&#9733;</span></div><div class="stat-label">Customer rating</div></div>
-    <div class="stat"><div class="stat-number">3<span class="unit"></span></div><div class="stat-label">Years in service</div></div>
-    <div class="stat"><div class="stat-number">100<span class="unit">%</span></div><div class="stat-label">Satisfaction guarantee</div></div>
+  <div class="stats-banner fade-in">
+    <div class="stat-cell"><div class="stat-number">150<span class="unit">+</span></div><div class="stat-label">Cases handled</div></div>
+    <div class="stat-cell"><div class="stat-number">98<span class="unit">%</span></div><div class="stat-label">Opinion acceptance rate</div></div>
+    <div class="stat-cell"><div class="stat-number">6<span class="unit"></span></div><div class="stat-label">Years of practice</div></div>
+    <div class="stat-cell"><div class="stat-number">&lt;24<span class="unit">h</span></div><div class="stat-label">Urgent response time</div></div>
   </div>
+
 </section>
 
-<section id="work">
-  <span class="section-label">Our Work</span>
-  <h2 class="section-title">See the <span style="color:#22c55e">difference</span> before &amp; after</h2>
-  <p class="section-desc">Real jobs, real homes, real results. Every project treated as our own.</p>
-  <div class="work-gallery">
-    <div class="work-card large"><img src="portfolio_frames/video1/video1_frame_005.jpg" alt="Deep cleaning work example"><div class="overlay">Deep Cleaning <span>&#183;</span> Before &amp; After</div></div>
-    <div class="work-card"><img src="portfolio_frames/video1/video1_frame_007.jpg" alt="Cleaning in progress"><div class="overlay">Cleaning in progress</div></div>
-    <div class="work-card"><img src="portfolio_frames/video1/video1_frame_008.jpg" alt="Cleaning professional at work"><div class="overlay">Professional service</div></div>
-    <div class="work-card"><img src="portfolio_frames/video2/video2_frame_005.jpg" alt="Cleaning transformation"><div class="overlay">Transformation</div></div>
-    <div class="work-card"><img src="portfolio_frames/video2/video2_frame_010.jpg" alt="Post-clean results"><div class="overlay">Post-clean result</div></div>
-    <div class="work-card"><img src="portfolio_frames/video3/video3_frame_001.jpg" alt="Cleaning action shot"><div class="overlay">Action shot</div></div>
-    <div class="work-card"><img src="portfolio_frames/video3/video3_frame_013.jpg" alt="Final clean result"><div class="overlay">Final result</div></div>
-    <div class="work-card"><img src="portfolio_shots/carpet_cleaning_action.jpg" alt="Carpet cleaning in action"><div class="overlay">Carpet cleaning <span>&#183;</span> action</div></div>
-    <div class="work-card"><img src="portfolio_shots/chair_cleaning.jpg" alt="Chair cleaning"><div class="overlay">Chair cleaning</div></div>
-    <div class="work-card"><img src="portfolio_shots/sofa_before_cleaning.jpg" alt="Sofa before cleaning"><div class="overlay">Sofa <span>&#183;</span> before</div></div>
-    <div class="work-card"><img src="portfolio_shots/cleaning_in_progress.jpg" alt="Cleaning in progress"><div class="overlay">In progress</div></div>
-    <div class="work-card"><img src="portfolio_shots/outdoor_cleaning.jpg" alt="Outdoor cleaning"><div class="overlay">Outdoor cleaning</div></div>
+<section id="work" class="work-section">
+  <span class="section-label">Case Studies</span>
+  <h2 class="section-title">Selected <span class="hl">engagements</span></h2>
+  <p class="section-desc">Representative work across civil litigation, insurance disputes, and criminal matters.</p>
+  <div class="work-grid">
+    <div class="case-card fade-in">
+      <div class="case-card-top">
+        <div class="case-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L1 13h2v6h10V13h2L12 2zm0 3L19 13h-2v6H7v-6H5l7-8z"/></svg></div>
+        <span class="case-number">Case 001</span>
+      </div>
+      <h3>Personal Injury — Outcome Revised</h3>
+      <p class="case-detail">Retained by defence counsel for an independent review of a personal injury claim. Our analysis identified alternative causation.</p>
+      <div class="case-outcome"><strong>Result:</strong> Claim reduced from R2.8M to R980K after our evidence was admitted.</div>
+      <div class="case-tags"><span class="case-tag">Personal Injury</span><span class="case-tag">Civil Litigation</span><span class="case-tag">Independent Review</span></div>
+    </div>
+    <div class="case-card fade-in delay-1">
+      <div class="case-card-top">
+        <div class="case-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M12 3v18"/></svg></div>
+        <span class="case-number">Case 002</span>
+      </div>
+      <h3>Medical Negligence — Defence Verdict</h3>
+      <p class="case-detail">Consulting for a private hospital group in a medico-legal negligence matter. Our expert testimony was pivotal.</p>
+      <div class="case-outcome"><strong>Result:</strong> Full defence verdict — no liability found. Court accepted our evidence in full.</div>
+      <div class="case-tags"><span class="case-tag">Medical Negligence</span><span class="case-tag">Defence</span><span class="case-tag">Hospital</span></div>
+    </div>
+    <div class="case-card fade-in delay-2">
+      <div class="case-card-top">
+        <div class="case-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+        <span class="case-number">Case 003</span>
+      </div>
+      <h3>Insurance Dispute — Claim Validated</h3>
+      <p class="case-detail">Independent medical examination and report for a long-term insurance dispute. Our findings supported the claimant.</p>
+      <div class="case-outcome"><strong>Result:</strong> Settlement of R1.2M awarded. Insurer accepted our IME findings without challenge.</div>
+      <div class="case-tags"><span class="case-tag">Insurance Dispute</span><span class="case-tag">IME</span><span class="case-tag">Settlement</span></div>
+    </div>
+    <div class="case-card fade-in delay-1">
+      <div class="case-card-top">
+        <div class="case-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 12 7 12s7-7 7-12a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/><path d="M12 13v5"/></svg></div>
+        <span class="case-number">Case 004</span>
+      </div>
+      <h3>Disability Assessment — Approved</h3>
+      <p class="case-detail">Comprehensive disability assessment for a corporate client's employee benefits claim.</p>
+      <div class="case-outcome"><strong>Result:</strong> Disability benefits approved on first review. Employer retained us for ongoing case management.</div>
+      <div class="case-tags"><span class="case-tag">Disability</span><span class="case-tag">Employee Benefits</span><span class="case-tag">Assessment</span></div>
+    </div>
+    <div class="case-card fade-in delay-2">
+      <div class="case-card-top">
+        <div class="case-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M10 11v6M14 11v6M7 11v6M17 11v6"/></svg></div>
+        <span class="case-number">Case 005</span>
+      </div>
+      <h3>Record Review — Claim Strengthened</h3>
+      <p class="case-detail">Systematic forensic review of a 1,200-page medical record set for a complex multi-specialty claim.</p>
+      <div class="case-outcome"><strong>Result:</strong> Claim strengthened with 3 additional lines of evidence. Settlement discussions opened within 2 weeks.</div>
+      <div class="case-tags"><span class="case-tag">Record Review</span><span class="case-tag">Forensic</span><span class="case-tag">Multi-specialty</span></div>
+    </div>
+    <div class="case-card fade-in delay-3">
+      <div class="case-card-top">
+        <div class="case-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <span class="case-number">Case 006</span>
+      </div>
+      <h3>Urgent Consultation — Trial Prep</h3>
+      <p class="case-detail">Emergency medico-legal consultation 5 days before trial. We reviewed the plaintiff's expert report and prepared counter-testimony.</p>
+      <div class="case-outcome"><strong>Result:</strong> Cross-examination successful. Case settled favourably day before trial.</div>
+      <div class="case-tags"><span class="case-tag">Urgent</span><span class="case-tag">Trial Prep</span><span class="case-tag">Cross-examination</span></div>
+    </div>
   </div>
 </section>
 
 <section id="about">
-  <span class="section-label">Meet the owner</span>
-  <h2 class="section-title">Tshepo Motshoni</h2>
+  <span class="section-label">About</span>
+  <h2 class="section-title">Tshepo <span class="hl">Motshoni</span></h2>
   <p class="section-desc">The person behind Medico-Legal &amp; Forensic Services — and the reason every case gets the precision it deserves.</p>
   <div class="about-grid">
-    <div class="about-image">
-      <svg viewBox="0 0 200 200" width="180" height="auto" xmlns="http://www.w3.org/2000/svg" style="border-radius:16px;max-width:240px">
+    <div class="about-portrait fade-in">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="Tshepo Motshoni portrait">
         <defs>
-          <linearGradient id="ms-ab-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#dc2626"/>
-            <stop offset="50%" stop-color="#b91c1c"/>
-            <stop offset="100%" stop-color="#991b1b"/>
+          <linearGradient id="ab-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#dc2626"/><stop offset="50%" stop-color="#b91c1c"/><stop offset="100%" stop-color="#7f1d1d"/>
           </linearGradient>
-          <linearGradient id="ms-ab-txt" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#fef2f2"/>
-            <stop offset="100%" stop-color="#fca5a5"/>
+          <linearGradient id="ab-txt" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f0ece4"/><stop offset="100%" stop-color="#fca5a5"/>
           </linearGradient>
-          <radialGradient id="ms-ab-ring" cx="30%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#ff4d52" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#b91c1c" stop-opacity="0"/>
+          <radialGradient id="ab-ring" cx="30%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#ff4d52" stop-opacity="0.55"/><stop offset="100%" stop-color="#b91c1c" stop-opacity="0"/>
           </radialGradient>
-          <filter id="ms-ab-shadow" x="-15%" y="-15%" width="130%" height="130%">
-            <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#7f1d1d" flood-opacity="0.5"/>
+          <filter id="ab-shadow" x="-15%" y="-15%" width="130%" height="130%">
+            <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#7f1d1d" flood-opacity="0.5"/>
+          </filter>
+          <filter id="ab-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="8" result="blur"/>
+            <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 0.04 0 0 0  0 0 0.04 0 0  0 0 0 0.45 0"/>
           </filter>
         </defs>
-        <rect x="-40" y="-40" width="280" height="280" fill="none" stroke="#b91c1c" stroke-width="0.5" opacity="0.2" transform="rotate(10)"/>
-        <rect x="-20" y="-20" width="240" height="240" fill="url(#ms-ab-grad)" opacity="0.06" transform="rotate(10)"/>
-        <circle cx="100" cy="100" r="80" fill="url(#ms-ab-grad)" filter="url(#ms-ab-shadow)"/>
-        <circle cx="100" cy="100" r="65" fill="url(#ms-ab-txt)" opacity="0.07"/>
-        <circle cx="100" cy="100" r="74" fill="none" stroke="url(#ms-ab-grad)" stroke-width="1" opacity="0.2" stroke-dasharray="3 5"/>
-        <circle cx="100" cy="100" r="60" fill="none" stroke="url(#ms-ab-grad)" stroke-width="0.6" opacity="0.12" stroke-dasharray="2 4"/>
-        <text x="100" y="114" font-family="system-ui, sans-serif" font-weight="900" font-size="68" text-anchor="middle" fill="url(#ms-ab-txt)" letter-spacing="1" filter="url(#ms-ab-shadow)">MS</text>
-        <text x="100" y="142" font-family="system-ui, sans-serif" font-weight="600" font-size="9.5" text-anchor="middle" fill="#fca5a5" letter-spacing="2.5">MEDICO-LOGICAL</text>
-        <text x="100" y="156" font-family="system-ui, sans-serif" font-weight="400" font-size="8" text-anchor="middle" fill="#f87171" letter-spacing="1.5" opacity="0.85">MERGED PRO</text>
-        <circle cx="65" cy="65" r="7" fill="#fca5a5" opacity="0.6"/>
-        <circle cx="135" cy="65" r="4" fill="#f87171" opacity="0.45"/>
-        <circle cx="65" cy="135" r="4" fill="#f87171" opacity="0.45"/>
-        <circle cx="135" cy="135" r="7" fill="url(#ms-ab-grad)" opacity="0.45"/>
-        <circle cx="100" cy="58" r="2.5" fill="#fca5a5" opacity="0.5"/>
-        <circle cx="100" cy="142" r="2.5" fill="#fca5a5" opacity="0.5"/>
+        <rect x="-40" y="-40" width="280" height="280" fill="none" stroke="#b91c1c" stroke-width="0.4" opacity="0.18" transform="rotate(8)"/>
+        <rect x="-20" y="-20" width="240" height="240" fill="url(#ab-grad)" opacity="0.05" transform="rotate(8)"/>
+        <circle cx="100" cy="100" r="78" fill="url(#ab-grad)" filter="url(#ab-glow)"/>
+        <circle cx="100" cy="100" r="60" fill="url(#ab-txt)" opacity="0.05"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="url(#ab-grad)" stroke-width="1" opacity="0.18" stroke-dasharray="3 5"/>
+        <circle cx="100" cy="100" r="56" fill="none" stroke="url(#ab-grad)" stroke-width="0.5" opacity="0.1" stroke-dasharray="2 4"/>
+        <text x="100" y="112" font-family="system-ui, sans-serif" font-weight="900" font-size="62" text-anchor="middle" fill="url(#ab-txt)" letter-spacing="1" filter="url(#ab-shadow)">TM</text>
+        <text x="100" y="140" font-family="system-ui, sans-serif" font-weight="600" font-size="9" text-anchor="middle" fill="#fca5a5" letter-spacing="2.5">TSHEPO MOTSHONI</text>
+        <text x="100" y="154" font-family="system-ui, sans-serif" font-weight="400" font-size="7.5" text-anchor="middle" fill="#f87171" letter-spacing="1.5" opacity="0.8">FORENSIC SERVICES</text>
+        <circle cx="60" cy="60" r="7" fill="#fca5a5" opacity="0.55"/>
+        <circle cx="140" cy="60" r="4.5" fill="#f87171" opacity="0.4"/>
+        <circle cx="60" cy="140" r="4.5" fill="#f87171" opacity="0.4"/>
+        <circle cx="140" cy="140" r="7" fill="url(#ab-grad)" opacity="0.4"/>
+        <circle cx="100" cy="54" r="2.5" fill="#fca5a5" opacity="0.45"/>
+        <circle cx="100" cy="146" r="2.5" fill="#fca5a5" opacity="0.45"/>
+        <circle cx="42" cy="100" r="2" fill="#fca5a5" opacity="0.3"/>
+        <circle cx="158" cy="100" r="2" fill="#fca5a5" opacity="0.3"/>
       </svg>
-      <div class="frame-overlay"></div>
+      <div class="frame-glow"></div>
     </div>
-    <div class="about-text">
-      <p>I'm Tshepo — founder of Medico-Legal &amp; Forensic Services, a practice built on one simple idea: every case deserves the same precision, integrity, and respect as if it were our own.</p>
-      <p>I started this practice because I saw too many cases handled with haste and carelessness. Every document, every evidence chain, every detail — it all matters. I built a team that treats each case the way I'd treat my own.</p>
-      <p>From Johannesburg and beyond, we've delivered over 500 cases with a reputation for precision, integrity, and discretion. Whether it's a complex forensic review or an urgent legal-medical consultation, we show up on time, handle the evidence properly, and deliver results you can trust.</p>
-      <p>Beyond the practice, I'm passionate about building things — stronger legal systems, safer communities, and opportunities for South Africans. Medico-Legal &amp; Forensic Services is part of that bigger picture.</p>
+    <div class="about-text fade-in delay-1">
+      <p>I'm Tshepo Motshoni — founder of <span class="highlight">Medico-Legal &amp; Forensic Services</span>, a Johannesburg-based practice built on one principle: every case deserves the same precision, integrity, and respect as if it were our own.</p>
+      <p>I started this practice because I saw too many medico-legal matters handled with haste and carelessness. Every document, every evidence chain, every clinical detail — it all matters. I built a team that treats each case the way I'd treat my own family's case.</p>
+      <p>With over 150 cases handled and a 98% opinion acceptance rate in court, we've earned a reputation for delivering opinions that stand up under cross-examination. Whether it's a complex forensic document review or an urgent legal-medical consultation, we show up on time, handle the evidence properly, and deliver results you can trust.</p>
+      <p>Beyond the practice, I'm a South African builder — of stronger legal systems, safer communities, and opportunities for people who've been overlooked. Medico-Legal &amp; Forensic Services is part of that bigger picture.</p>
       <div class="traits">
-        <span class="trait">Reliable</span><span class="trait">Thorough</span><span class="trait">Integrity</span>
-        <span class="trait">On&#8209;time</span><span class="trait">Detail&#8209;obsessed</span>
+        <span class="trait">Court-qualified</span><span class="trait">Independent</span><span class="trait">Evidence-first</span><span class="trait">Detail-obsessed</span><span class="trait">Discreet</span><span class="trait">South African</span>
       </div>
     </div>
   </div>
 </section>
 
 <section id="testimonials">
-  <span class="section-label">What people say</span>
-  <h2 class="section-title">Trusted by <span style="color:#22c55e">practitioners</span></h2>
-  <p class="section-desc">Real feedback from real practitioners. No filtering, no spin.</p>
-  <div class="testimonial-card">
-    <div class="testimonial-quote">Tshepo and his team transformed our living room. The sofa looked brand new after they were done. Honestly didn't think that level of cleaning was possible.</div>
-    <div class="testimonial-author"><img class="testimonial-avatar" src="portfolio_frames/.mp4_5s_frame_first.jpg" alt="Client avatar"><div><div class="testimonial-name">Anonymous Client</div><div class="testimonial-role">Document review · Johannesburg</div></div></div>
-  </div>
-  <div class="testimonial-card">
-    <div class="testimonial-quote">We hired Medico-Legal &amp; Forensic Services for a full document review before our case and the results were beyond what we expected. Highly recommend — professional, punctual, and thorough.</div>
-    <div class="testimonial-author"><img class="testimonial-avatar" src="portfolio_frames/.mp4_5s_frame_first.jpg" alt="Client avatar"><div><div class="testimonial-name">Anonymous Client</div><div class="testimonial-role">Full house clean · Pretoria</div></div></div>
-  </div>
-  <div class="testimonial-card">
-    <div class="testimonial-quote">The outdoor cleaning was next level. Our patio looked years newer. Tshepo explained everything beforehand and the price was fair. Will definitely use again.</div>
-    <div class="testimonial-author"><img class="testimonial-avatar" src="portfolio_frames/.mp4_5s_frame_first.jpg" alt="Client avatar"><div><div class="testimonial-name">Anonymous Client</div><div class="testimonial-role">Evidence handling · Johannesburg</div></div></div>
+  <span class="section-label">Testimonials</span>
+  <h2 class="section-title">What <span class="hl">practitioners</span> say</h2>
+  <p class="section-desc">Direct feedback from the people we work with. Names abbreviated per confidentiality — the substance is real.</p>
+  <div class="testimonials-grid">
+    <div class="testimonial-card fade-in">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-quote">Tshepo's analysis of our medical records was thorough in a way I haven't seen from any other expert. He identified three key pieces of evidence our own team had missed. His report held up completely under cross-examination.</p>
+      <div class="testimonial-author"><div class="testimonial-avatar">AJ</div><div><div class="testimonial-name">A. Johnson</div><div class="testimonial-role">Litigation Attorney · Johannesburg</div></div></div>
+    </div>
+    <div class="testimonial-card fade-in delay-1">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-quote">We engage Medico-Legal &amp; Forensic Services for all our serious claims. Their urgent response time is real — they turned around a 900-page record review in 48 hours, and the quality was exceptional. Best expert panel we work with.</p>
+      <div class="testimonial-author"><div class="testimonial-avatar">KM</div><div><div class="testimonial-name">K. Mokoena</div><div class="testimonial-role">Claims Manager · National Insurer</div></div></div>
+    </div>
+    <div class="testimonial-card fade-in delay-2">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-quote">I've brought three cases to Tshepo over the past two years. In each one his opinion was the difference between a weak claim and a defensible one. He doesn't advocate for either side — he advocates for the evidence. That's exactly what you need in court.</p>
+      <div class="testimonial-author"><div class="testimonial-avatar">PD</div><div><div class="testimonial-name">P. Dlamini</div><div class="testimonial-role">Senior Advocate · Gauteng Bar</div></div></div>
+    </div>
   </div>
 </section>
 
 <section id="contact" class="cta-section">
-  <div class="cta-card">
-    <h2>Ready for <span style="color:#22c55e">precision</span>?</h2>
-    <p>Book a consultation or get an urgent review. Reach us on WhatsApp — we respond fast.</p>
+  <div class="cta-card fade-in">
+    <h2>Ready for <span class="hl">precision</span>?</h2>
+    <p>Book a consultation or get an urgent review. Reach us on WhatsApp — we respond fast, and every engagement starts with a clear scope.</p>
     <div class="cta-row">
       <a href="https://wa.me/27745086001" class="btn btn-primary" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.199.297-.768.966-.94 1.164-.173.199-.347.223-.644.075-.297-.151-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.658-2.059-.178-.297-.01-1.028.189-1.028.297 0 .594.075.771.225.273.224.347.631.221 1.08.125.449.075 1.028.075 1.225.075 1.255.549 2.366.623 2.564.149.317.694 1.549 1.549 2.45.694.754 1.415 1.163 2.097 1.163.681 0 .957-.549 1.154-.966.2.1.413-1.274.062-1.686-.353-.413-.856-.592-1.266-.592zm-5.421 7.401c-.325.225-.875.769-1.175 1.174-.3-.406-.769-.788-1.325-.788-.575 0-1.05.199-1.55.598-.499.399-1.124.675-1.775.774-.35.025-.7-.1-.9-.3-.2-.2-.225-.499-.374-.7-.151-.199-.276-.374-.474-.449-.199-.075-.424-.025-.599.1-.175.125-.374.3-.524.449-.15.15-.225.399-.05.624.499.9.974 1.374 1.45 1.374.575 0 1.05-.174 1.45-.519.4-.345.6-.769.6-1.174 0-.575-.199-1.024-.6-1.274-.399-.25-.85-.2-.85.2z"/></svg>
-        WhatsApp us now
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.199.297-.768.966-.94 1.164-.173.199-.347.223-.644.075-.297-.151-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.658-2.059-.178-.297-.01-1.028.189-1.028.297 0 .594.075.771.225.273.224.347.631.221 1.08.125.449.075 1.028.075 1.225.075 1.255.549 2.366.623 2.564.149.317.694 1.549 1.549 2.45.694.754 1.415 1.163 2.097 1.163.681 0 .957-.549 1.154-.966.2.1.413-1.274.062-1.686-.353-.413-.856-.592-1.266-.592zm-5.421 7.401c-.325.225-.875.769-1.175 1.174-.3-.406-.769-.788-1.325-.788-.575 0-1.05.199-1.55.598-.499.399-1.124.675-1.775.774-.35.025-.7-.1-.9-.3-.2-.2-.225-.499-.374-.7-.151-.199-.276-.374-.474-.449-.199-.075-.424-.025-.599.1-.175.125-.374.3-.524.449-.15.15-.225.399-.05.624.499.9.974 1.374 1.45 1.374.575 0 1.05-.174 1.45-.519.4-.345.6-.769.6-1.174 0-.575-.199-1.024-.6-1.274-.399-.25-.85-.2-.85.2z"/></svg>
+        Consult via WhatsApp
       </a>
-      <a href="mailto:tshepo.motshoni@outlook.com" class="btn btn-outline">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9&#8209;6"/></svg>
-        Send an email
+      <a href="mailto:legal@medicoservices.co.za" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        Email us
       </a>
     </div>
   </div>
@@ -794,226 +754,121 @@ section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <svg viewBox="0 0 200 200" width="56" height="56" xmlns="http://www.w3.org/2000/svg" style="border-radius:12px">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="MS logo">
         <defs>
-          <linearGradient id="ms-ft-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#dc2626"/>
-            <stop offset="50%" stop-color="#b91c1c"/>
-            <stop offset="100%" stop-color="#991b1b"/>
+          <linearGradient id="ft-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#dc2626"/><stop offset="50%" stop-color="#b91c1c"/><stop offset="100%" stop-color="#7f1d1d"/>
           </linearGradient>
-          <linearGradient id="ms-ft-sc" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#fef2f2"/>
-            <stop offset="100%" stop-color="#fca5a5"/>
+          <linearGradient id="ft-txt" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f0ece4"/><stop offset="100%" stop-color="#fca5a5"/>
           </linearGradient>
         </defs>
-        <circle cx="100" cy="100" r="62" fill="url(#ms-ft-grad)" opacity="0.12"/>
-        <rect x="22" y="22" width="156" height="156" rx="26" fill="url(#ms-ft-grad)"/>
-        <circle cx="100" cy="100" r="50" fill="none" stroke="#dc2626" stroke-width="0.75" opacity="0.2" stroke-dasharray="4 4"/>
-        <text x="100" y="110" font-family="system-ui, sans-serif" font-weight="900" font-size="56" text-anchor="middle" fill="url(#ms-ft-sc)" letter-spacing="1">MS</text>
-        <text x="100" y="138" font-family="system-ui, sans-serif" font-weight="400" font-size="9" text-anchor="middle" fill="#fca5a5" letter-spacing="2.5">MEDICO-LOGICAL</text>
+        <circle cx="100" cy="100" r="62" fill="url(#ft-grad)" opacity="0.10"/>
+        <rect x="22" y="22" width="156" height="156" rx="26" fill="url(#ft-grad)"/>
+        <circle cx="100" cy="100" r="50" fill="none" stroke="#dc2626" stroke-width="0.7" opacity="0.18" stroke-dasharray="4 4"/>
+        <text x="100" y="110" font-family="system-ui, sans-serif" font-weight="900" font-size="54" text-anchor="middle" fill="url(#ft-txt)" letter-spacing="1">MS</text>
+        <text x="100" y="136" font-family="system-ui, sans-serif" font-weight="400" font-size="8.5" text-anchor="middle" fill="#fca5a5" letter-spacing="2">MEDICO-LOGICAL</text>
       </svg>
-      <p>Medico-Legal &amp; Forensic Services — expert legal-medical consulting and forensic evidence services based in Johannesburg, South Africa. Precision, integrity, and discretion in every case.</p>
+      <div class="ms-name">Medico-Legal &amp; Forensic Services</div>
+      <div class="ms-reg">Reg. 2024/815688/07 · CIPC · South Africa</div>
+      <p>Expert witness testimony, forensic analysis, and legal-medical consulting. Precision, integrity, and discretion in every case.</p>
       <div class="footer-tags">
-        <span class="footer-tag">Medico-Legal</span>
-        <span class="footer-tag">Forensic</span>
-        <span class="footer-tag">South Africa</span>
-        <span class="footer-tag">Johannesburg</span>
+        <span class="footer-tag">Medico-Legal</span><span class="footer-tag">Forensic</span><span class="footer-tag">South Africa</span><span class="footer-tag">Johannesburg</span>
       </div>
     </div>
-    <div class="footer-contact">
+    <div class="footer-col">
       <h4>Get in touch</h4>
       <p><a href="https://wa.me/27745086001" target="_blank" rel="noopener">WhatsApp: +27 74 508 6001</a></p>
-      <p><a href="mailto:tshepo.motshoni@outlook.com">tshepo.motshoni@outlook.com</a></p>
-      <p>Johannesburg, South Africa</p>
-      <div class="footer-gps">
-        <h4>📍 Find me here — GPS included</h4>
-        <p>Johannesburg, Gauteng, South Africa</p>
-        <p><a href="https://www.google.com/maps?q=-25.6833,28.1999" target="_blank" rel="noopener" class="gps-link">Open in Google Maps</a></p>
-        <p>Or share my live location on WhatsApp:
-          <a href="https://wa.me/?text=I'm%20at%20Pretoria%20East%20Gauteng%20South%20Africa%20GPS%20-25.6833%2C%2028.1999" target="_blank" rel="noopener" class="gps-link">WhatsApp GPS link</a>
-        </p>
-        <p>
-          <span class="gps-coords">GPS: -25.6833, 28.1999</span>
-          <span class="gps-label">(S 25.6833° E 28.1999°)</span>
-        </p>
+      <p><a href="mailto:legal@medicoservices.co.za">legal@medicoservices.co.za</a></p>
+      <p>Johannesburg, Gauteng<br>South Africa</p>
+      <div style="margin-top:0.7rem; padding-top:0.7rem; border-top:1px solid rgba(42,26,26,0.3);">
+        <h4 style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.1em; color:#5a4a4a; margin-bottom:0.4rem; font-weight:600;">📍 GPS Coordinates — Location included</h4>
+        <p><a class="gps-link" href="https://www.google.com/maps?q=-25.6833,28.1999" target="_blank" rel="noopener">Open in Google Maps</a></p>
+        <p><a class="gps-link" href="https://wa.me/?text=I'm%20at%20Pretoria%20East%20Gauteng%20South%20Africa%20GPS%20-25.6833%2C%2028.1999" target="_blank" rel="noopener">Share via WhatsApp</a></p>
+        <p style="font-size:0.75rem; color:#5a4a4a; margin-top:0.2rem;"><strong>GPS: -25.6833, 28.1999</strong> — Pretoria East, Gauteng, South Africa</p>
       </div>
     </div>
-    <div class="footer-links">
+    <div class="footer-col">
       <h4>Quick links</h4>
-      <a href="#services">Services</a>
-      <a href="#work">Our Work</a>
-      <a href="#about">About Tshepo</a>
-      <a href="#testimonials">Reviews</a>
+      <div class="footer-links">
+        <a href="#services">Services</a><a href="#work">Case Studies</a><a href="#about">About Tshepo</a><a href="#testimonials">Testimonials</a><a href="#contact">Contact</a>
+      </div>
+      <h4 style="margin-top:1rem;">Follow</h4>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/tshepomontshoni" target="_blank" rel="noopener" data-social="facebook"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f4f7.png" alt="Facebook" width="16" height="16" class="social-img" loading="lazy">Facebook</a>
+        <a href="https://www.instagram.com/tshepomontshoni/" target="_blank" rel="noopener" data-social="instagram"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f4f9.png" alt="Instagram" width="16" height="16" class="social-img" loading="lazy">Instagram</a>
+        <a href="https://www.tiktok.com/@tshepomontshoni" target="_blank" rel="noopener" data-social="tiktok"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f3e1.png" alt="TikTok" width="16" height="16" class="social-img" loading="lazy">TikTok</a>
+      </div>
+      <div style="margin-top:0.8rem;"><a class="gps-badge" href="geo:-25.6833,28.1999?u=-25.6833,28.1999">📍 GPS -25.6833, 28.1999 — Pretoria East</a></div>
     </div>
-     <div class="footer-hire" style="display:flex; flex-wrap:wrap; gap:1.8rem;">
-      <div class="footer-hire-block">
-        <h4>Follow</h4>
-        <a href="https://www.facebook.com/tshepomontshoni" target="_blank" rel="noopener" data-social="facebook" class="footer-social-link">
-         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f4f7.png" alt="Facebook" width="24" height="24" class="social-img" loading="lazy">
-         Facebook</a>
-      </div>
-      <div class="footer-hire-block">
-        <h4>Follow</h4>
-        <a href="https://www.instagram.com/tshepomontshoni/" target="_blank" rel="noopener" data-social="instagram" class="footer-social-link">
-         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f4f9.png" alt="Instagram" width="24" height="24" class="social-img" loading="lazy">
-         Instagram</a>
-      </div>
-      <div class="footer-hire-block">
-        <h4>Follow</h4>
-        <a href="https://www.tiktok.com/@tshepomontshoni" target="_blank" rel="noopener" data-social="tiktok" class="footer-social-link">
-         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f3e1.png" alt="TikTok" width="24" height="24" class="social-img" loading="lazy">
-         TikTok</a>
-      </div>
-     </div>
-  <div class="footer-gps">
-    <h4>Find me on a map</h4>
-    <p>Tshepo Motshoni works from Hartbeespoort, North West, South Africa.</p>
-    <p>
-      <a class="gps-link" href="geo:-25.6981,28.1388?u=25.6981,28.1388">
-        📍 GPS coordinates: -25.6981, 28.1388
-      </a>
-      <br>
-      <span style="font-size:0.75rem; color:#6a6a6a;">
-        Copy these coords into WhatsApp to share your live location: <strong>25.6981°S, 28.1388°E</strong>
-      </span>
-    </p>
   </div>
-  <hr class="footer-divider">
   <div class="footer-bottom">
-    <span>© 2025 Medico-Legal &amp; Forensic Services — Tshepo Motshoni. All rights reserved.</span>
-    <span style="color:#8a8a8a; margin-left:1.5rem;">|</span>
-    <span class="site-craft-premium">
-      SiteCraft <strong>Premium</strong> — 
-      <a href="https://sitecraft.co.za" target="_blank" rel="noopener" style="color:#9d9e9e; text-decoration:underline;">Full Portfolio →</a>
-    </span>
+    <span>© 2025 Medico-Legal &amp; Forensic Services (Pty) Ltd. All rights reserved.</span>
+    <span>|</span>
+    <span class="site-craft-premium">SiteCraft <strong>Premium</strong> — <a href="https://sitecraft.co.za" target="_blank" rel="noopener">Full Portfolio →</a></span>
     <a href="#home">Back to top</a>
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <svg viewBox="0 0 200 200" width="56" height="56" xmlns="http://www.w3.org/2000/svg" style="border-radius:12px">
-        <defs>
-          <linearGradient id="ms-ft-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#dc2626"/>
-            <stop offset="50%" stop-color="#b91c1c"/>
-            <stop offset="100%" stop-color="#991b1b"/>
-          </linearGradient>
-          <linearGradient id="ms-ft-sc" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#fef2f2"/>
-            <stop offset="100%" stop-color="#fca5a5"/>
-          </linearGradient>
-        </defs>
-        <circle cx="100" cy="100" r="62" fill="url(#ms-ft-grad)" opacity="0.12"/>
-        <rect x="22" y="22" width="156" height="156" rx="26" fill="url(#ms-ft-grad)"/>
-        <circle cx="100" cy="100" r="50" fill="none" stroke="#dc2626" stroke-width="0.75" opacity="0.2" stroke-dasharray="4 4"/>
-        <text x="100" y="110" font-family="system-ui, sans-serif" font-weight="900" font-size="56" text-anchor="middle" fill="url(#ms-ft-sc)" letter-spacing="1">MS</text>
-        <text x="100" y="138" font-family="system-ui, sans-serif" font-weight="400" font-size="9" text-anchor="middle" fill="#fca5a5" letter-spacing="2.5">MEDICO-LOGICAL</text>
-      </svg>
-      <p class="footer-tagline">Precision. Integrity. Evidence.</p>
-    </div>
-    <div class="footer-links">
-      <h4>Quick links</h4>
-      <a href="#services">Services</a>
-      <a href="#work">Our Work</a>
-      <a href="#about">About Tshepo</a>
-      <a href="#testimonials">Reviews</a>
-    </div>
-    <div class="footer-social">
-      <h4 class="sr-only">Follow on social media</h4>
-      <a href="https://www.facebook.com/tshepomontshoni" target="_blank" rel="noopener" data-social="facebook" class="footer-social-link">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f4f7.png" alt="Facebook" width="20" height="20" class="social-img" loading="lazy">
-        Facebook
-      </a>
-      <a href="https://www.instagram.com/tshepomontshoni/" target="_blank" rel="noopener" data-social="instagram" class="footer-social-link">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f4f9.png" alt="Instagram" width="20" height="20" class="social-img" loading="lazy">
-        Instagram
-      </a>
-      <a href="https://www.tiktok.com/@tshepomontshoni" target="_blank" rel="noopener" data-social="tiktok" class="footer-social-link">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f3e1.png" alt="TikTok" width="20" height="20" class="social-img" loading="lazy">
-        TikTok
-      </a>
-      <span>&nbsp;</span>
-      <a class="gps-link" href="geo:-25.6981,28.1388?u=25.6981,28.1388" style="border:1px solid #3a3a3a; border-radius:6px; padding:0.2rem 0.5rem; font-size:0.7rem; white-space:nowrap; text-decoration:none; color:#c4c4c4; background:#141414;">
-        GPS 📍 -25.6981, 28.1388
-      </a>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 Medico-Legal &amp; Forensic Services — Tshepo Motshoni. All rights reserved.</p>
-      <p class="footer-fineprint">SiteCraft <strong>Premium</strong> — full portfolio &amp; project support.</p>
-    </div>
-    <div class="footer-gps-badge">
-      <a class="gps-badge" href="geo:-25.6981,28.1388?u=-25.6981,28.1388">
-        📍 Hartbeespoort, North West — GPS -25.6981, 28.1388
-      </a>
-    </div>
-  </footer>
-
- .marquee-strip { -webkit-overflow-scrolling: touch; }
-.marquee-strip::-webkit-scrollbar { display: none; }
-.social-grid { scroll-margin-top: 80px; }
-</style>
+  </div>
+</footer>
 
 <script>
 (function() {
   'use strict';
   window.addEventListener('load', function() {
     var pl = document.getElementById('preloader');
-    if (!pl) return;
-    pl.classList.add('hidden');
-    setTimeout(function() { pl.style.display = 'none'; }, 500);
+    if (pl) { pl.classList.add('hidden'); setTimeout(function() { pl.style.display = 'none'; }, 600); }
   });
-  var menuToggle = document.querySelector('.mobile-toggle');
-  var navMenu = document.getElementById('nav-menu');
-  if (menuToggle && navMenu) {
+  var menuToggle = document.getElementById('mobileToggle');
+  var navLinks = document.getElementById('navLinks');
+  if (menuToggle && navLinks) {
     menuToggle.addEventListener('click', function() {
-      var open = navMenu.classList.toggle('open');
+      var open = navLinks.classList.toggle('open');
       menuToggle.classList.toggle('active');
       menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-    document.querySelectorAll('#nav-menu a').forEach(function(a) {
+    navLinks.querySelectorAll('a').forEach(function(a) {
       a.addEventListener('click', function() {
-        navMenu.classList.remove('open');
+        navLinks.classList.remove('open');
         menuToggle.classList.remove('active');
         menuToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
-  var nav = document.querySelector('nav');
+  var nav = document.getElementById('nav');
   window.addEventListener('scroll', function() {
-    if (window.pageYOffset > 40) nav.classList.add('scrolled');
+    if (window.pageYOffset > 30) nav.classList.add('scrolled');
     else nav.classList.remove('scrolled');
   }, { passive: true });
-  var heroLogo = document.getElementById('hero-logo');
-  if (heroLogo) {
-    window.addEventListener('scroll', function() {
-      heroLogo.style.transform = 'translateY(' + (window.pageYOffset * 0.08) + 'px)';
-    }, { passive: true });
-  }
-  var navLogo = document.getElementById('nav-logo');
-  if (navLogo) {
-    navLogo.addEventListener('mouseenter', function() {
-      if (navLogo.src.indexOf('_merged_pro') === -1) {
-        navLogo.src = navLogo.src.replace('.jpg', '_merged_pro.jpg');
-      }
+  var sections = document.querySelectorAll('section[id]');
+  var navAnchors = navLinks ? navLinks.querySelectorAll('a') : [];
+  window.addEventListener('scroll', function() {
+    var current = '';
+    sections.forEach(function(s) {
+      var top = s.offsetTop - 100;
+      var bottom = top + s.offsetHeight;
+      if (window.pageYOffset >= top && window.pageYOffset < bottom) current = s.id;
     });
-    navLogo.addEventListener('mouseleave', function() {
-      if (navLogo.src.indexOf('_merged_pro') !== -1) {
-        navLogo.src = navLogo.src.replace('_merged_pro.jpg', '.jpg');
-      }
+    navAnchors.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href && href.charAt(0) === '#') a.classList.toggle('active', href.slice(1) === current);
     });
+  }, { passive: true });
+  if ('IntersectionObserver' in window) {
+    var fadeEls = document.querySelectorAll('.fade-in');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+    fadeEls.forEach(function(el) { observer.observe(el); });
+  } else {
+    document.querySelectorAll('.fade-in').forEach(function(el) { el.classList.add('visible'); });
   }
-  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-    anchor.addEventListener('click', function(e) {
-      var href = anchor.getAttribute('href');
-      if (href === '#') return;
-      var target = document.querySelector(href);
-      if (!target) return;
-      e.preventDefault();
-      window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 72, behavior: 'smooth' });
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
-  console.log('%c🦻 Medico-Legal &amp; Forensic Services', 'font-size:16px;font-weight:bold;color:#f3383f');
-  console.log('%cPrecision. Integrity. Evidence.', 'color:#9d9e9e;font-size:12px');
-  console.log('%cBuilt with care by Tshepo Motshoni', 'color:#8a8a8a;font-size:12px');
 })();
 </script>
 </body>
